@@ -1,26 +1,62 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Main from './pages/main';
+import { CssBaseline } from '@mui/material';
+
+const theme = createTheme({
+	palette: {
+		mode: 'dark',
+		background: {default: '#0c0d0f'},
+	},
+	components: {
+		MuiListItemButton: {
+			styleOverrides: {
+				root: {
+					'&.Mui-disabled': {
+						pointerEvents: 'unset',
+						cursor: 'not-allowed',
+					},
+				},
+			},
+		},
+		MuiButton: {
+			styleOverrides: {
+				root: {
+					'&.Mui-disabled': {
+						pointerEvents: 'unset',
+						cursor: 'not-allowed',
+					},
+				},
+			},
+		},
+		MuiCard: {
+			styleOverrides: {
+				root: {
+					background: '#202939'
+				}
+			}
+		}
+	},
+});
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route
+					path='/'
+					element={
+						<ThemeProvider theme={theme}>
+						<CssBaseline />
+							<Main />
+						</ThemeProvider>
+					}
+				/>
+			</Routes>
+		</BrowserRouter>
+	);
 }
 
 export default App;

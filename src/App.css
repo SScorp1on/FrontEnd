@@ -1,38 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+
 .App {
-  text-align: center;
+	text-align: center;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App .name {
+	text-align: center;
+	font-family: 'Abel', sans-serif;
+	font-size: 100pt;
+	white-space: nowrap;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App div {
+	width: 80px;
+	text-align: center;
+	display: inline-block;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.App .name-one {
+	margin-left: -660px;
+	transition: 1s;
+  margin-right: 140px;
 }
 
-.App-link {
-  color: #61dafb;
+.App .name-one:hover {
+	color: rgb(236, 143, 143);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App .name-two {
+	transition: 1s;
+  margin-right: 140px;
+}
+
+.App .name-two:hover {
+	color: rgb(236, 143, 143);
+}
+
+.App .name-three {
+	transition: 1s;
+  margin-right: 140px;
+}
+
+.App .name-three:hover {
+	color: rgb(236, 143, 143);
+}
+
+.App .name-four {
+	transition: 1s;
+	transform: rotate(180deg);
+  margin-right: 140px;
+}
+
+.App .name-four:hover {
+	color: rgb(236, 143, 143);
+}
+
+.App .name-five {
+	transition: 1s;
+  margin-right: 140px;
+}
+
+.App .name-five:hover {
+	color: rgb(236, 143, 143);
+}
+
+.App .name-six {
+	transition: 1s;
+  margin-right: 140px;
+}
+
+.App .name-six:hover {
+	color: rgb(236, 143, 143);
+}
+
+.App .name-seven {
+	transition: 1s;
+}
+
+.App .name-seven:hover {
+	color: rgb(236, 143, 143);
+}
+
+.grid {
+	min-height: 60vh;
+}
+
+.bottom {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.bottom .nastya {
+	text-align: 'center';
+	color: #111317;
+  margin-bottom: 20px;
+  width: 350px;
+  height: 50px;
+  transition: 3s;
+}
+
+.bottom .nastya:hover {
+	color: white;
+  font-size: 10pt;
 }
