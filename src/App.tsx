@@ -1,45 +1,10 @@
 import React from 'react';
 import './App.css';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Main from './pages/main';
-import { CssBaseline } from '@mui/material';
-
-const theme = createTheme({
-	palette: {
-		mode: 'dark',
-		background: {default: '#0c0d0f'},
-	},
-	components: {
-		MuiListItemButton: {
-			styleOverrides: {
-				root: {
-					'&.Mui-disabled': {
-						pointerEvents: 'unset',
-						cursor: 'not-allowed',
-					},
-				},
-			},
-		},
-		MuiButton: {
-			styleOverrides: {
-				root: {
-					'&.Mui-disabled': {
-						pointerEvents: 'unset',
-						cursor: 'not-allowed',
-					},
-				},
-			},
-		},
-		MuiCard: {
-			styleOverrides: {
-				root: {
-					background: '#202939'
-				}
-			}
-		}
-	},
-});
+import DefaultContainer from "./containers";
+import Register from "./pages/register";
+import Control from "./pages/control";
 
 function App() {
 	return (
@@ -48,10 +13,25 @@ function App() {
 				<Route
 					path='/'
 					element={
-						<ThemeProvider theme={theme}>
-						<CssBaseline />
+						<DefaultContainer>
 							<Main />
-						</ThemeProvider>
+						</DefaultContainer>
+					}
+				/>
+				<Route
+					path='/login'
+					element={
+						<DefaultContainer>
+							<Register />
+						</DefaultContainer>
+					}
+				/>
+				<Route
+					path='/control'
+					element={
+						<DefaultContainer>
+							<Control />
+						</DefaultContainer>
 					}
 				/>
 			</Routes>
