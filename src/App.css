@@ -9,3 +9,12 @@ body {
     alignItems: 'center';
     justifyContent: 'center';
 }
+
+.thank {
+
+}
+
+.thank:hover {
+    color: blueviolet;
+    font-size: 15pt;
+}

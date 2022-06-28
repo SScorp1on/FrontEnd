@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Box, Center, Space, Text} from "@mantine/core";
+import {Affix, Box, Button, Center, Footer, Space, Text, Transition} from "@mantine/core";
 import {useDocumentTitle} from "@mantine/hooks";
 
 const ym = function () {
@@ -10,6 +10,7 @@ const ym = function () {
 
 export default function Main() {
 	useDocumentTitle(`Jourloy`);
+	// @ts-ignore
 	return (
 		<>
 			<div dangerouslySetInnerHTML={{__html: ym()}}/>

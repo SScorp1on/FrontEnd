@@ -39,6 +39,12 @@ export default function UserSettings({opened, setOpened}: UserSettingsProps) {
 		setTwReady(true);
 	};
 
+	const onTwitchButton = async () => {
+		const t = await axios.get(`http://localhost:3000/sso/twitch`);
+		const url = `https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=${t.data.id}&redirect_uri=http://localhost:3001/twitch/oauth&scope=channel%3Amanage%3Apolls+channel%3Aread%3Apolls`;
+		window.location.replace(url);
+	};
+
 	getUserData();
 
 	return (
@@ -68,11 +74,9 @@ export default function UserSettings({opened, setOpened}: UserSettingsProps) {
 					setOpened(true);
 				}}
 			>
-				<Text size="sm" style={{ marginBottom: 10 }} weight={500}>
-					Отправь на твич канал <Mark>JOURLOY</Mark> команду:
-					<Space h={`xs`}/>
-					<Code>!auth {userHash}</Code>
-				</Text>
+				<Button onClick={() => onTwitchButton()}>
+					Connect with twitch
+				</Button>
 			</Modal>
 
 			<Modal
@@ -87,12 +91,13 @@ export default function UserSettings({opened, setOpened}: UserSettingsProps) {
 					</Grid.Col>
 					<Grid.Col span={19}>
 						<Button
-							disabled={discordConnect != null}
 							loading={!dsReady}
 							onClick={() => {
+								if (discordConnect != null) return;
 								setDsDialog(true);
 								setOpened(false);
 							}}
+							color={(discordConnect != null) ? `violet` : `green`}
 							variant="outline"
 							fullWidth
 						>
@@ -104,13 +109,14 @@ export default function UserSettings({opened, setOpened}: UserSettingsProps) {
 					</Grid.Col>
 					<Grid.Col span={19}>
 						<Button
-							disabled={twitchConnect != null}
 							loading={!twReady}
 							onClick={() => {
+								if (twitchConnect != null) return;
 								setTwDialog(true);
 								setOpened(false);
 							}}
 							variant="outline"
+							color={(twitchConnect != null) ? `grape` : `green`}
 							fullWidth
 						>
 							{twitchConnect ? `Подключено` : `Подключить`}

@@ -14,6 +14,8 @@ import User from "../components/user";
 import axios from "axios";
 import jwt from "jwt-decode";
 import {useNavigate} from "react-router-dom";
+import {useState} from "react";
+import MainApp from "../components/mainApp";
 
 const ym = function () {
 	return (
@@ -23,6 +25,7 @@ const ym = function () {
 
 export default function Control() {
 	const navigate = useNavigate();
+	const [appState, setAppState] = useState(`url`);
 
 	const checkUser = async () => {
 		const token = localStorage.getItem(`accessToken`);
@@ -51,13 +54,14 @@ export default function Control() {
 				navbar={<Navbar width={{ base: 300 }} p="xs">
 					<Navbar.Section>{/* Header with logo */}</Navbar.Section>
 					<Navbar.Section grow mt="md">
+						<Link label={`URLs`} IconProp={`url`} color={`white`}/>
 						<Link label={`Discord`} IconProp={`discord`} color={`white`}/>
 						<Link label={`Twitch`} IconProp={`twitch`} color={`white`}/>
 					</Navbar.Section>
 					<Navbar.Section><User /></Navbar.Section>
 				</Navbar>}
 			>
-				{/* Your application here */}
+				<MainApp appState={appState}/>
 			</AppShell>
 		</>
 	);

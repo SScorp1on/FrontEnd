@@ -1,6 +1,6 @@
 import {Center, Group, Text, ThemeIcon, UnstyledButton} from "@mantine/core";
 import * as React from "react";
-import {BrandDiscord, BrandTwitch} from "tabler-icons-react";
+import {BrandDiscord, BrandTwitch, Link as LinkI} from "tabler-icons-react";
 
 export interface LinkProps {
 	IconProp: string;
@@ -13,6 +13,7 @@ export default function Link({ IconProp, color, label }: LinkProps) {
 
 	if (IconProp === `discord`) Icon = <BrandDiscord size={20} />;
 	if (IconProp === `twitch`) Icon = <BrandTwitch size={20} />;
+	if (IconProp === `url`) Icon = <LinkI size={20} />;
 
 	return (
 		<UnstyledButton

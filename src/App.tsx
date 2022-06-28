@@ -5,6 +5,7 @@ import Main from './pages/main';
 import DefaultContainer from "./containers";
 import Register from "./pages/register";
 import Control from "./pages/control";
+import TwitchOauth from "./pages/twitchOauth";
 
 function App() {
 	return (
@@ -31,6 +32,14 @@ function App() {
 					element={
 						<DefaultContainer>
 							<Control />
+						</DefaultContainer>
+					}
+				/>
+				<Route
+					path={`/twitch/oauth`}
+					element={
+						<DefaultContainer>
+							<TwitchOauth />
 						</DefaultContainer>
 					}
 				/>

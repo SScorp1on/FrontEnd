@@ -27,8 +27,8 @@ export default function Register() {
 		},
 
 		validate: {
-			username: (value) => ((!/[^a-zA-Z]/gm.test(value) && value.length > 3 && value.length < 15) ? null : `Invalid username`),
-			password: (value) => ((value.length > 5) ? null : `Invalid password`)
+			username: (value) => ((/^[a-zA-Z0-9_-]{3,16}$/.test(value)) ? null : `Invalid username`),
+			password: (value) => (( /^[a-zA-Z0-9_-]{6,18}$/.test(value)) ? null : `Invalid password`)
 		},
 	});
 
