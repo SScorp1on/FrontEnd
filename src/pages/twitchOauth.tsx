@@ -1,25 +1,53 @@
-import {useSearchParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import * as React from "react";
-import {useEffect, useState} from "react";
-import {Box, Center, Space, Text} from "@mantine/core";
-import TwitchLoading from "../components/twitch/twitchLoading";
-import TwitchLoaded from "../components/twitch/twitchLoaded";
+import {useEffect} from "react";
+import {Box, Center, Loader, Space, Text} from "@mantine/core";
+import axios from "axios";
+import {showNotification} from "@mantine/notifications";
+import {Check, X} from "tabler-icons-react";
+import {useDocumentTitle} from "@mantine/hooks";
 
 export default function TwitchOauth() {
-	const [loaded, setLoad] = useState(false);
-
-	const [searchParams, setSearchParams] = useSearchParams();
-	const token = searchParams.get(`access_token`);
-
-	let auth = false;
+	useDocumentTitle(`Twitch авторизация`);
+	const navigate = useNavigate();
 
 	useEffect(() => {
-
+		const url = window.location.href;
+		const hash = url.split(`#`)[1].split(`?`)[0].split(`&`);
+		if (!hash.indexOf(`access_token`)) {
+			showNotification({
+				title: `Ошибка Twitch`,
+				message: `Авторизация не прошла`,
+				color: `red`,
+				icon: <X/>,
+				disallowClose: true,
+			});
+			navigate(`/control`);
+		}
+		const token = hash[hash.indexOf(`access_token`) + 1];
+		const userToken = localStorage.getItem(`accessToken`);
+		axios.get(`http://localhost:3000/sso/twitch/oauth?access_token=${token}&jwt=${userToken}`)
+			.then(() => {
+				showNotification({
+					title: `Twitch`,
+					message: `Авторизация прошла успешно`,
+					color: `green`,
+					icon: <Check/>,
+					disallowClose: true,
+				});
+				navigate(`/control`);
+			})
+			.catch(() => {
+				showNotification({
+					title: `Twitch`,
+					message: `Авторизация не прошла`,
+					color: `red`,
+					icon: <X/>,
+					disallowClose: true,
+				});
+				navigate(`/control`);
+			});
 	});
-
-	let AppComponent;
-	if (loaded) AppComponent = <TwitchLoading/>;
-	else AppComponent = <TwitchLoaded error={auth}/>;
 
 	return (
 		<>
@@ -28,36 +56,24 @@ export default function TwitchOauth() {
 				transform: `translate(-50%, -50%)`,
 			}}>
 				<Center>
-					<Text transform="uppercase" style={{fontSize: `80pt`}}>T</Text>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Text transform="uppercase" style={{fontSize: `80pt`}}>W</Text>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Text transform="uppercase" style={{fontSize: `80pt`}}>I</Text>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Text transform="uppercase" style={{fontSize: `80pt`}}>T</Text>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Text transform="uppercase" style={{fontSize: `80pt`}}>C</Text>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Text transform="uppercase" style={{fontSize: `80pt`}}>H</Text>
+					<div style={{
+						display: `flex`,
+						justifyContent: `space-evenly`,
+						width: 900,
+					}}>
+						<Text style={{fontSize: `80pt`}}>T</Text>
+						<Text style={{fontSize: `80pt`}}>W</Text>
+						<Text style={{fontSize: `80pt`}}>I</Text>
+						<Text style={{fontSize: `80pt`}}>T</Text>
+						<Text style={{fontSize: `80pt`}}>C</Text>
+						<Text style={{fontSize: `80pt`}}>H</Text>
+					</div>
 				</Center>
-				<Space h={`lg`}/>
-				<Space h={`lg`}/>
-				{AppComponent}
+				<Space w="xl"/>
+				<Space w="xl"/>
+				<Center>
+					<Loader color="violet" size="lg"/>
+				</Center>
 			</Box>
 		</>
 	);

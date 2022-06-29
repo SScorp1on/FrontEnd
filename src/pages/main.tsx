@@ -19,37 +19,19 @@ export default function Main() {
 				transform: `translate(-50%, -50%)`
 			}}>
 				<Center>
-					<Text transform="uppercase" style={{fontSize: `80pt`}}>J</Text>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Text transform="uppercase" style={{fontSize: `80pt`}}>O</Text>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Text transform="uppercase" style={{fontSize: `80pt`}}>U</Text>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Text transform="uppercase" style={{fontSize: `80pt`, transform: `rotate(180deg)`}}>R</Text>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Text transform="uppercase" style={{fontSize: `80pt`}}>L</Text>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Text transform="uppercase" style={{fontSize: `80pt`}}>O</Text>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Space w="xl"/>
-					<Text transform="uppercase" style={{fontSize: `80pt`}}>Y</Text>
+					<div style={{
+						display: `flex`,
+						justifyContent: `space-evenly`,
+						width: 1200,
+					}}>
+						<Text style={{fontSize: `80pt`}}>J</Text>
+						<Text style={{fontSize: `80pt`}}>O</Text>
+						<Text style={{fontSize: `80pt`}}>U</Text>
+						<Text style={{fontSize: `80pt`, transform: `rotate(180deg)`}}>R</Text>
+						<Text style={{fontSize: `80pt`}}>L</Text>
+						<Text style={{fontSize: `80pt`}}>O</Text>
+						<Text style={{fontSize: `80pt`}}>Y</Text>
+					</div>
 				</Center>
 			</Box>
 		</>

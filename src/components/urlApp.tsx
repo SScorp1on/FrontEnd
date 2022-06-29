@@ -1,30 +1,82 @@
 /* eslint no-console: 0*/
-import {Button, Grid, Group, ScrollArea, Space, Table, TextInput} from "@mantine/core";
+import {
+	Button,
+	Center,
+	Divider,
+	Grid,
+	Menu,
+	ScrollArea,
+	Space,
+	Table,
+	TextInput,
+	Text, Tooltip,
+} from "@mantine/core";
 import * as React from "react";
 import {useState} from "react";
 import {useForm} from "@mantine/form";
 import {useNavigate} from "react-router-dom";
-import {useDocumentTitle} from "@mantine/hooks";
-import {X} from "tabler-icons-react";
+import {useClipboard, useDocumentTitle} from "@mantine/hooks";
+import {Check, Copy, Repeat, Trash} from "tabler-icons-react";
+import {showNotification} from "@mantine/notifications";
 
 export default function UrlApp() {
 	const navigate = useNavigate();
+	const clipboard = useClipboard();
 	useDocumentTitle(`Ссылки`);
 	const [loaded, setLoading] = useState(false);
 
 	const elements = [{
 		id: 1,
-		url: `https://test.com/thisisVeryInterestingTest`,
+		url: `https://test.com/вцfuhewFPUIHWFU9HEWPUAHFPUHUhfuwepqhfepiuhwapiu`,
 		short: `jourloy.com/dbwud2`,
 		count: 15
 	}];
+
+	const getShortText = (text: string) => {
+		const arr = text.split(``);
+		let str = ``;
+		for (const c of arr) if (str.length < 40) str += c;
+		str += `...`;
+		return str;
+	};
+
 	const rows = elements.map((element) => (
 		<tr key={element.id}>
-			<td><ScrollArea style={{width: 150}}>{element.url}</ScrollArea></td>
-			<td>{element.short}</td>
-			<td>{element.count}</td>
-			<td><Button compact variant={`outline`} size={`xs`} color={`red`}><X
-				size={16}/></Button></td>
+			<td><Center><Tooltip
+				label={element.url}
+				transition="skew-up"
+			>
+				{getShortText(element.url)}
+			</Tooltip></Center></td>
+			<td><Center>{element.short}</Center></td>
+			<td><Center>{element.count}</Center></td>
+			<td>
+				<Center>
+					<Menu>
+						<Menu.Item
+							icon={<Copy size={14}/>}
+							onClick={() => {
+								clipboard.copy(`slave`);
+								showNotification({
+									message: `Ссылка скопирована`,
+									color: `green`,
+									icon: <Check/>,
+									disallowClose: true,
+									autoClose: 2000
+								});
+							}}
+						>
+							Скопировать
+						</Menu.Item>
+						<Menu.Item icon={<Repeat size={14}/>}>Получить новую</Menu.Item>
+
+						<Divider size={`sm`}/>
+
+						<Menu.Item color="red"
+						           icon={<Trash size={14}/>}>Удалить</Menu.Item>
+					</Menu>
+				</Center>
+			</td>
 		</tr>
 	));
 
@@ -60,6 +112,7 @@ export default function UrlApp() {
 							variant="outline"
 							disabled={form.errors.link != null}
 							loading={loaded}
+							fullWidth
 						>
 							Сократить
 						</Button>
@@ -67,12 +120,12 @@ export default function UrlApp() {
 				</Grid>
 			</form>
 			<Space h={`lg`}/>
-			<Table>
+			<Table style={{width: `800px`}}>
 				<thead>
 					<tr>
-						<th>Ссылка</th>
-						<th>Сокращенная</th>
-						<th>Переходов</th>
+						<th><Center>Ссылка</Center></th>
+						<th><Center>Сокращенная</Center></th>
+						<th><Center>Переходов</Center></th>
 						<th></th>
 					</tr>
 				</thead>

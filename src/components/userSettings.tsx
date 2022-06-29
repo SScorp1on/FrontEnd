@@ -41,7 +41,7 @@ export default function UserSettings({opened, setOpened}: UserSettingsProps) {
 
 	const onTwitchButton = async () => {
 		const t = await axios.get(`http://localhost:3000/sso/twitch`);
-		const url = `https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=${t.data.id}&redirect_uri=http://localhost:3001/twitch/oauth&scope=channel%3Amanage%3Apolls+channel%3Aread%3Apolls`;
+		const url = `https://id.twitch.tv/oauth2/authorize?force_verify=true&response_type=token&client_id=${t.data.id}&redirect_uri=http://localhost:3001/twitch/oauth&scope=channel%3Amanage%3Apolls+channel%3Aread%3Apolls`;
 		window.location.replace(url);
 	};
 
@@ -63,20 +63,6 @@ export default function UserSettings({opened, setOpened}: UserSettingsProps) {
 					<Space h={`xs`}/>
 					<Code>!auth {userHash}</Code>
 				</Text>
-			</Modal>
-
-			<Modal
-				opened={twDialog}
-				centered
-				withCloseButton={false}
-				onClose={() => {
-					setTwDialog(false);
-					setOpened(true);
-				}}
-			>
-				<Button onClick={() => onTwitchButton()}>
-					Connect with twitch
-				</Button>
 			</Modal>
 
 			<Modal
@@ -112,8 +98,7 @@ export default function UserSettings({opened, setOpened}: UserSettingsProps) {
 							loading={!twReady}
 							onClick={() => {
 								if (twitchConnect != null) return;
-								setTwDialog(true);
-								setOpened(false);
+								onTwitchButton();
 							}}
 							variant="outline"
 							color={(twitchConnect != null) ? `grape` : `green`}
