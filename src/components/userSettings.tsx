@@ -1,6 +1,6 @@
 /* eslint no-console: 0*/
-import React, {useEffect, useState} from "react";
-import {Button, Code, Dialog, Grid, Group, Mark, Modal, Space, Text} from "@mantine/core";
+import React, {useState} from "react";
+import {Button, Code, Grid, Mark, Modal, Space, Text} from "@mantine/core";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
@@ -14,25 +14,39 @@ export default function UserSettings({opened, setOpened}: UserSettingsProps) {
 	const [dsReady, setDsReady] = useState(false);
 	const [twReady, setTwReady] = useState(false);
 	const [dsDialog, setDsDialog] = useState(false);
-	const [twDialog, setTwDialog] = useState(false);
-	const [discordConnect, setDiscordConnect] = useState(null);
-	const [twitchConnect, setTwitchConnect] = useState(null);
+	const [discordConnect, setDiscordConnect] = useState(false);
+	const [twitchConnect, setTwitchConnect] = useState(false);
 	const [userHash, setUserHash] = useState(null);
 
 	const navigate = useNavigate();
 
 	const getUserData = async () => {
 		const token = localStorage.getItem(`accessToken`);
-		const res = await axios.get(`http://localhost:3000/auth/?access=${token}`)
-			.catch((e) => ({status: e.response.status, data: e.response.data}));
-		if (res.status !== 200) {
-			localStorage.removeItem(`accessToken`);
-			localStorage.removeItem(`refreshToken`);
-			navigate(`/login`);
-		}
+		const res = await axios.get(`http://localhost:3000/user`, {headers: {"authorization": `Bearer ${token}`}})
+			.catch(async (e) => {
+				const status = e.response.status;
 
-		setDiscordConnect(res.data.discord);
-		setTwitchConnect(res.data.twitch);
+				if (status === 401) {
+					const rToken = localStorage.getItem(`refreshToken`);
+					const r = await axios.post(`http://localhost:3000/auth/re-login`, {refresh: rToken}, {headers: {"authorization": `Bearer ${token}`}})
+						.catch(() => {
+							localStorage.removeItem(`accessToken`);
+							localStorage.removeItem(`refreshToken`);
+							navigate(`/login`);
+						});
+					localStorage.setItem(`accessToken`, r?.data.t.a);
+					localStorage.setItem(`refreshToken`, r?.data.t.r);
+					return await axios.get(`http://localhost:3000/user`, {headers: {"authorization": `Bearer ${token}`}});
+				}
+				localStorage.removeItem(`accessToken`);
+				localStorage.removeItem(`refreshToken`);
+				navigate(`/login`);
+				return null;
+			});
+		if (!res) return;
+
+		setDiscordConnect((res.data.u.discordID != null));
+		setTwitchConnect((res.data.u.twitchID != null));
 		setUserHash(res.data.hash);
 
 		setDsReady(true);
@@ -40,7 +54,8 @@ export default function UserSettings({opened, setOpened}: UserSettingsProps) {
 	};
 
 	const onTwitchButton = async () => {
-		const t = await axios.get(`http://localhost:3000/sso/twitch`);
+		const token = localStorage.getItem(`accessToken`);
+		const t = await axios.get(`http://localhost:3000/sso/twitch`, {headers: {"authorization": `Bearer: ${token}`}});
 		const url = `https://id.twitch.tv/oauth2/authorize?force_verify=true&response_type=token&client_id=${t.data.id}&redirect_uri=http://localhost:3001/twitch/oauth&scope=channel%3Amanage%3Apolls+channel%3Aread%3Apolls`;
 		window.location.replace(url);
 	};
@@ -58,8 +73,9 @@ export default function UserSettings({opened, setOpened}: UserSettingsProps) {
 					setOpened(true);
 				}}
 			>
-				<Text size="sm" style={{ marginBottom: 10 }} weight={500}>
-					Отправь в любой канал на сервере <Mark>JOURLOY's server</Mark> команду:
+				<Text size="sm" style={{marginBottom: 10}} weight={500}>
+					Отправь в любой канал на сервере <Mark>JOURLOY's
+					server</Mark> команду:
 					<Space h={`xs`}/>
 					<Code>!auth {userHash}</Code>
 				</Text>
@@ -79,11 +95,11 @@ export default function UserSettings({opened, setOpened}: UserSettingsProps) {
 						<Button
 							loading={!dsReady}
 							onClick={() => {
-								if (discordConnect != null) return;
+								if (discordConnect) return;
 								setDsDialog(true);
 								setOpened(false);
 							}}
-							color={(discordConnect != null) ? `violet` : `green`}
+							color={(discordConnect) ? `violet` : `green`}
 							variant="outline"
 							fullWidth
 						>
@@ -97,11 +113,11 @@ export default function UserSettings({opened, setOpened}: UserSettingsProps) {
 						<Button
 							loading={!twReady}
 							onClick={() => {
-								if (twitchConnect != null) return;
-								onTwitchButton();
+								if (twitchConnect) return;
+								onTwitchButton().then(() => null);
 							}}
 							variant="outline"
-							color={(twitchConnect != null) ? `grape` : `green`}
+							color={(twitchConnect) ? `grape` : `green`}
 							fullWidth
 						>
 							{twitchConnect ? `Подключено` : `Подключить`}

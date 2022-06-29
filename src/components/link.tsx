@@ -1,6 +1,12 @@
 import {Center, Group, Text, ThemeIcon, UnstyledButton} from "@mantine/core";
 import * as React from "react";
-import {BrandDiscord, BrandTwitch, Link as LinkI} from "tabler-icons-react";
+import {
+	BrandDiscord,
+	BrandTwitch, CurrencyBitcoin,
+	CurrencyEthereum,
+	Link as LinkI,
+	ShoppingCart
+} from "tabler-icons-react";
 
 export interface LinkProps {
 	IconProp: string;
@@ -14,6 +20,8 @@ export default function Link({ IconProp, color, label }: LinkProps) {
 	if (IconProp === `discord`) Icon = <BrandDiscord size={20} />;
 	if (IconProp === `twitch`) Icon = <BrandTwitch size={20} />;
 	if (IconProp === `url`) Icon = <LinkI size={20} />;
+	if (IconProp === `cart`) Icon = <ShoppingCart size={20} />;
+	if (IconProp === `trade`) Icon = <CurrencyBitcoin size={20} />;
 
 	return (
 		<UnstyledButton

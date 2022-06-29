@@ -26,7 +26,7 @@ export default function TwitchOauth() {
 		}
 		const token = hash[hash.indexOf(`access_token`) + 1];
 		const userToken = localStorage.getItem(`accessToken`);
-		axios.get(`http://localhost:3000/sso/twitch/oauth?access_token=${token}&jwt=${userToken}`)
+		axios.get(`http://localhost:3000/sso/twitch/oauth?access_token=${token}`, {headers: {"authorization": `Bearer ${userToken}`}})
 			.then(() => {
 				showNotification({
 					title: `Twitch`,
@@ -37,7 +37,27 @@ export default function TwitchOauth() {
 				});
 				navigate(`/control`);
 			})
-			.catch(() => {
+			.catch(async (e) => {
+				const status = e.response.status;
+				if (status === 401) {
+					const rToken = localStorage.getItem(`refreshToken`);
+					const r = await axios.post(`http://localhost:3000/auth/re-login`, {refresh: rToken}, {headers: {"authorization": `Bearer ${userToken}`}})
+						.catch(() => {
+							localStorage.removeItem(`accessToken`);
+							localStorage.removeItem(`refreshToken`);
+							navigate(`/login`);
+						});
+					localStorage.setItem(`accessToken`, r?.data.t.a);
+					localStorage.setItem(`refreshToken`, r?.data.t.r);
+					showNotification({
+						message: `Сервер не смог обработать запрос, попробуйте снова`,
+						color: `red`,
+						icon: <X/>,
+						disallowClose: true,
+					});
+					navigate(`/control`);
+					return;
+				}
 				showNotification({
 					title: `Twitch`,
 					message: `Авторизация не прошла`,

@@ -27,8 +27,8 @@ export default function Register() {
 		},
 
 		validate: {
-			username: (value) => ((/^[a-zA-Z0-9_-]{3,16}$/.test(value)) ? null : `Invalid username`),
-			password: (value) => (( /^[a-zA-Z0-9_-]{6,18}$/.test(value)) ? null : `Invalid password`)
+			username: (value) => ((/^[a-zA-Z\d_-]{3,16}$/.test(value)) ? null : `Invalid username`),
+			password: (value) => (( /^[a-zA-Z\d_-]{5,18}$/.test(value)) ? null : `Invalid password`)
 		},
 	});
 
@@ -50,16 +50,15 @@ export default function Register() {
 	const onSubmit = async (values: {password: string, username: string}) => {
 		setLoading(true);
 		const res = await axios.post(`http://localhost:3000/auth`, values)
-			.catch(() => ({data: {error: true}, status: 500}));
+			.catch((r) => ({status: r.status, data: r.data}));
 		setLoading(false);
 		if (res.status !== 201) {
 			if (res.status === 409) {
-				form.setErrors({ username: `Username already used`});
+				form.setErrors({ password: `Пароль не верный`});
 			} else {
 				setLoading(false);
 				showNotification({
-					title: `Server error`,
-					message: `Looks like server don't response 😔`,
+					message: `Похоже сервер не доступен 😔\nОшибка: ${res.status}`,
 					color: `red`,
 					autoClose: 3000
 				});
@@ -67,8 +66,7 @@ export default function Register() {
 		} else {
 			setLoading(false);
 			showNotification({
-				title: `Done`,
-				message: `Glad to see you here 👋`,
+				message: `Рад видеть тебя снова 👋`,
 				color: `green`,
 				autoClose: 3000
 			});

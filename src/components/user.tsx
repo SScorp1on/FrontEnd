@@ -12,20 +12,20 @@ import {ChevronLeft, ChevronRight} from "tabler-icons-react";
 import jwt from 'jwt-decode';
 import {useState} from "react";
 import UserSettings from "./userSettings";
+import {useNavigate} from "react-router-dom";
 
 export default function User() {
 	const theme = useMantineTheme();
 	const [opened, setOpened] = useState(false);
+	const navigate = useNavigate();
 
 	const token = localStorage.getItem(`accessToken`);
-	if (!token) return (
-		<>
-			<Skeleton height={50} circle mb="xl" />
-			<Skeleton height={8} radius="xl" />
-			<Skeleton height={8} mt={6} radius="xl" />
-			<Skeleton height={8} mt={6} width="70%" radius="xl" />
-		</>
-	);
+	if (!token) {
+		localStorage.removeItem(`accessToken`);
+		localStorage.removeItem(`refreshToken`);
+		navigate(`/login`);
+		return (<></>);
+	}
 	const username = jwt<{username: string}>(token).username;
 	const url = `https://avatars.dicebear.com/api/avataaars/${username}.svg`;
 

@@ -1,14 +1,11 @@
 /* eslint no-console: 0*/
 import * as React from "react";
 import {useState} from "react";
-import {ActionIcon, AppShell, Navbar, useMantineColorScheme} from "@mantine/core";
+import {AppShell, Divider, Navbar} from "@mantine/core";
 import Link from "../components/link";
 import User from "../components/user";
-import axios from "axios";
-import jwt from "jwt-decode";
 import {useNavigate} from "react-router-dom";
 import MainApp from "../components/mainApp";
-import {MoonStars, Sun} from "tabler-icons-react";
 
 const ym = function () {
 	return (
@@ -20,25 +17,6 @@ export default function Control() {
 	const navigate = useNavigate();
 	const [appState, setAppState] = useState(`url`);
 
-	const checkUser = async () => {
-		const token = localStorage.getItem(`accessToken`);
-		if (!token) {
-			navigate(`/login`);
-			return;
-		}
-		const username = jwt<{ username: string }>(token).username;
-		const res = await axios.get(`http://localhost:3000/auth/check?access=${token}`)
-			.catch((e) => ({status: e.response.status, data: e.response.data}));
-		if (res.status !== 200) {
-			localStorage.removeItem(`accessToken`);
-			localStorage.removeItem(`refreshToken`);
-			navigate(`/login`);
-		}
-	};
-
-	checkUser();
-
-	// @ts-ignore
 	return (
 		<>
 			<div dangerouslySetInnerHTML={{__html: ym()}}/>
@@ -48,7 +26,9 @@ export default function Control() {
 				navbar={<Navbar width={{base: 300}} p="xs">
 					<Navbar.Section>{/* Header with logo */}</Navbar.Section>
 					<Navbar.Section grow mt="md">
-						<Link label={`URLs`} IconProp={`url`} color={`white`}/>
+						<Link label={`Ссылки`} IconProp={`url`} color={`white`}/>
+						<Link label={`Продукты`} IconProp={`cart`} color={`white`}/>
+						<Link label={`Торговля`} IconProp={`trade`} color={`white`}/>
 						<Link label={`Discord`} IconProp={`discord`} color={`white`}/>
 						<Link label={`Twitch`} IconProp={`twitch`} color={`white`}/>
 					</Navbar.Section>
