@@ -9,7 +9,7 @@ import {
 	Table,
 	TextInput,
 	Tooltip,
-	Text
+	Text, Pagination
 } from "@mantine/core";
 import * as React from "react";
 import {useEffect, useState} from "react";
@@ -30,14 +30,15 @@ interface Link {
 }
 
 export default function UrlApp() {
+	useDocumentTitle(`Ссылки`);
 	const token = localStorage.getItem(`accessToken`);
 	const navigate = useNavigate();
 	const clipboard = useClipboard();
-	useDocumentTitle(`Ссылки`);
 	const [loaded, setLoading] = useState(false);
 	const [elements, setElements] = useState<Link[]>([]);
 	const [page, setPage] = useState(1);
-	const [bLoaded, setBLoaded] = useState(true);
+	const [pages, setPages] = useState(2);
+	const [bLoaded, setBLoaded] = useState(false);
 	const modals = useModals();
 
 	const getShortText = (text: string) => {
@@ -49,20 +50,39 @@ export default function UrlApp() {
 	};
 
 	useEffect(() => {
+		if (loaded) return;
 		axios.get(`http://localhost:3000/links`, {headers: {"authorization": `Bearer ${token}`}})
 			.then(r => {
 				const arr = r.data.array.reverse();
-				if (arr.length < 10) {
-					for (let i = arr.length; i < 10; i++) {
-						arr.push({
-							_id: i+1,
+				let newArr = [];
+				const pages = Math.ceil(arr.length/10);
+				setPages((pages === 0) ? 1 : pages);
+				if (page > pages) setPage(pages);
+				if (arr.length > 10) {
+					let c = page * 10;
+					let offset = (page - 1) * 10;
+
+					for (let i = 0; i < c; i++) {
+						if (offset > 0) {
+							offset--;
+							continue;
+						}
+						if (((page - 1) * 10) + newArr.length === arr.length) continue;
+						newArr.push(arr[i]);
+					}
+				} else newArr = arr;
+				if (newArr.length < 10) {
+					for (let i = newArr.length; i < 10; i++) {
+						newArr.push({
+							_id: i + 1,
 							source: ``,
 							short: ``,
 							count: ``
 						});
 					}
 				}
-				setElements(arr);
+				setElements(newArr);
+				setLoading(true);
 			});
 	});
 
@@ -75,6 +95,7 @@ export default function UrlApp() {
 					icon: <Check/>,
 					disallowClose: true,
 				});
+				setLoading(false);
 			})
 			.catch((e) => {
 				showNotification({
@@ -164,12 +185,13 @@ export default function UrlApp() {
 	};
 
 	const onSubmit = async (values: { link: string }) => {
-		setBLoaded(false);
+		setBLoaded(true);
 		const token = localStorage.getItem(`accessToken`);
 		const res = await axios.post(`http://localhost:3000/links`, {source: values.link}, {headers: {"authorization": `Bearer ${token}`}})
 			.then(() => true)
 			.catch(() => false);
-		setBLoaded(true);
+		setBLoaded(false);
+		form.values.link = ``;
 		if (res) {
 			showNotification({
 				message: `Ссылка успешно добавлена`,
@@ -177,6 +199,7 @@ export default function UrlApp() {
 				icon: <Check/>,
 				disallowClose: true,
 			});
+			setLoading(false);
 		} else {
 			showNotification({
 				message: `Ошибка во время создания ссылки`,
@@ -224,6 +247,9 @@ export default function UrlApp() {
 				</thead>
 				<tbody>{getRows()}</tbody>
 			</Table>
+			<Center>
+				<Pagination onChange={(p) => { setPage(p); setLoading(false); }} total={pages} />
+			</Center>
 		</>
 	);
 }

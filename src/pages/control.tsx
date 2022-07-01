@@ -18,7 +18,7 @@ const ym = function () {
 
 export default function Control() {
 	const navigate = useNavigate();
-	const [appState, setAppState] = useState(`url`);
+	const [appState, setAppState] = useState(`discord`);
 
 	useEffect(() => {
 		const token = localStorage.getItem(`accessToken`);
@@ -58,11 +58,11 @@ export default function Control() {
 				navbar={<Navbar width={{base: 300}} p="xs">
 					<Navbar.Section>{/* Header with logo */}</Navbar.Section>
 					<Navbar.Section grow mt="md">
-						<Link label={`Ссылки`} IconProp={`url`} color={`white`}/>
-						<Link label={`Продукты`} IconProp={`cart`} color={`white`}/>
-						<Link label={`Торговля`} IconProp={`trade`} color={`white`}/>
-						<Link label={`Discord`} IconProp={`discord`} color={`white`}/>
-						<Link label={`Twitch`} IconProp={`twitch`} color={`white`}/>
+						<Link label={`Ссылки`} IconProp={`url`} setAppState={setAppState}/>
+						<Link label={`Продукты`} IconProp={`cart`} setAppState={setAppState}/>
+						<Link label={`Торговля`} IconProp={`trade`} setAppState={setAppState}/>
+						<Link label={`Discord`} IconProp={`discord`} setAppState={setAppState}/>
+						<Link label={`Twitch`} IconProp={`twitch`} setAppState={setAppState}/>
 					</Navbar.Section>
 					<Navbar.Section>
 						<User/>

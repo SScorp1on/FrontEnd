@@ -10,21 +10,37 @@ import {
 
 export interface LinkProps {
 	IconProp: string;
-	color: string;
 	label: string;
+	setAppState: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function Link({ IconProp, color, label }: LinkProps) {
+export default function Link({ IconProp, label, setAppState }: LinkProps) {
 	let Icon;
+	let disabled = true;
 
-	if (IconProp === `discord`) Icon = <BrandDiscord size={20} />;
+	if (IconProp === `discord`) {
+		Icon = <BrandDiscord size={20} />;
+		disabled = false;
+	}
 	if (IconProp === `twitch`) Icon = <BrandTwitch size={20} />;
-	if (IconProp === `url`) Icon = <LinkI size={20} />;
+	if (IconProp === `url`) {
+		Icon = <LinkI size={20} />;
+		disabled = false;
+	}
 	if (IconProp === `cart`) Icon = <ShoppingCart size={20} />;
 	if (IconProp === `trade`) Icon = <CurrencyBitcoin size={20} />;
 
+	if (disabled) {
+		return (<></>);
+	}
+
+	const onButton = (s: string) => {
+		setAppState(s);
+	};
+
 	return (
 		<UnstyledButton
+			onClick={() => onButton(IconProp)}
 			sx={(theme) => ({
 				display: `block`,
 				width: `100%`,
@@ -36,7 +52,7 @@ export default function Link({ IconProp, color, label }: LinkProps) {
 			})}
 		>
 			<Group>
-				<ThemeIcon color={color} variant="outline" size={`md`}>
+				<ThemeIcon color={`white`} variant="outline" size={`md`}>
 					{Icon}
 				</ThemeIcon>
 				<Text size="md">{label}</Text>
