@@ -5,58 +5,120 @@ import {
 	Divider,
 	Grid,
 	Menu,
-	ScrollArea,
 	Space,
 	Table,
 	TextInput,
-	Text, Tooltip,
+	Tooltip,
+	Text
 } from "@mantine/core";
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useForm} from "@mantine/form";
 import {useNavigate} from "react-router-dom";
 import {useClipboard, useDocumentTitle} from "@mantine/hooks";
-import {Check, Copy, Repeat, Trash} from "tabler-icons-react";
+import {Check, Clock, Copy, Refresh, Trash, X} from "tabler-icons-react";
 import {showNotification} from "@mantine/notifications";
+import axios from "axios";
+import { useModals } from '@mantine/modals';
+
+interface Link {
+	_id: string;
+	source: string;
+	short: string;
+	count: number;
+	owner: string;
+}
 
 export default function UrlApp() {
+	const token = localStorage.getItem(`accessToken`);
 	const navigate = useNavigate();
 	const clipboard = useClipboard();
 	useDocumentTitle(`Ссылки`);
 	const [loaded, setLoading] = useState(false);
-
-	const elements = [{
-		id: 1,
-		url: `https://test.com/вцfuhewFPUIHWFU9HEWPUAHFPUHUhfuwepqhfepiuhwapiu`,
-		short: `jourloy.com/dbwud2`,
-		count: 15
-	}];
+	const [elements, setElements] = useState<Link[]>([]);
+	const [page, setPage] = useState(1);
+	const [bLoaded, setBLoaded] = useState(true);
+	const modals = useModals();
 
 	const getShortText = (text: string) => {
 		const arr = text.split(``);
 		let str = ``;
 		for (const c of arr) if (str.length < 40) str += c;
-		str += `...`;
+		if (str.length === 40) str += `...`;
 		return str;
 	};
 
-	const rows = elements.map((element) => (
-		<tr key={element.id}>
+	useEffect(() => {
+		axios.get(`http://localhost:3000/links`, {headers: {"authorization": `Bearer ${token}`}})
+			.then(r => {
+				const arr = r.data.array.reverse();
+				if (arr.length < 10) {
+					for (let i = arr.length; i < 10; i++) {
+						arr.push({
+							_id: i+1,
+							source: ``,
+							short: ``,
+							count: ``
+						});
+					}
+				}
+				setElements(arr);
+			});
+	});
+
+	const onDelete = (url: string) => {
+		axios.delete(`http://localhost:3000/links/${url}`, {headers: {"authorization": `Bearer ${token}`}})
+			.then(() => {
+				showNotification({
+					message: `Ссылка успешно удалена`,
+					color: `green`,
+					icon: <Check/>,
+					disallowClose: true,
+				});
+			})
+			.catch((e) => {
+				showNotification({
+					message: `Ошибка удаления ссылки`,
+					color: `red`,
+					icon: <X/>,
+					disallowClose: true,
+				});
+			});
+	};
+
+	const openDeleteModal = (url: string) =>
+		modals.openConfirmModal({
+			title: `Удаление ссылки`,
+			centered: true,
+			children: (
+				<Text size="sm">
+					Вы точно хотите удалить ссылку? Это действие невозможно будет отменить
+				</Text>
+			),
+			labels: { confirm: `Удалить`, cancel: `Оставить` },
+			confirmProps: { color: `red` },
+			onCancel: () => null,
+			onConfirm: () => onDelete(url),
+		});
+
+	const getRows = () => elements.map((element) => (
+		<tr key={element._id}>
 			<td><Center><Tooltip
-				label={element.url}
+				label={element.source}
 				transition="skew-up"
 			>
-				{getShortText(element.url)}
+				{getShortText(element.source)}
 			</Tooltip></Center></td>
-			<td><Center>{element.short}</Center></td>
+			<td><Center>{(element.short !== ``) ? `https://jourloy.com/` : ``}{element.short}</Center></td>
 			<td><Center>{element.count}</Center></td>
 			<td>
 				<Center>
 					<Menu>
 						<Menu.Item
 							icon={<Copy size={14}/>}
+							disabled={(element.short === ``)}
 							onClick={() => {
-								clipboard.copy(`slave`);
+								clipboard.copy(`https://jourloy.com/${element.short}`);
 								showNotification({
 									message: `Ссылка скопирована`,
 									color: `green`,
@@ -68,12 +130,19 @@ export default function UrlApp() {
 						>
 							Скопировать
 						</Menu.Item>
-						<Menu.Item icon={<Repeat size={14}/>}>Получить новую</Menu.Item>
+						<Menu.Item disabled icon={<Refresh size={14}/>}>Получить
+							новую</Menu.Item>
+						<Menu.Item disabled icon={<Clock size={14}/>}>Продлить</Menu.Item>
 
 						<Divider size={`sm`}/>
 
 						<Menu.Item color="red"
-						           icon={<Trash size={14}/>}>Удалить</Menu.Item>
+						           disabled={(element.short === ``)}
+						           icon={<Trash size={14}/>}
+						           onClick={() => openDeleteModal(element.short)}
+						>
+							Удалить
+						</Menu.Item>
 					</Menu>
 				</Center>
 			</td>
@@ -94,9 +163,33 @@ export default function UrlApp() {
 		form.validate();
 	};
 
+	const onSubmit = async (values: { link: string }) => {
+		setBLoaded(false);
+		const token = localStorage.getItem(`accessToken`);
+		const res = await axios.post(`http://localhost:3000/links`, {source: values.link}, {headers: {"authorization": `Bearer ${token}`}})
+			.then(() => true)
+			.catch(() => false);
+		setBLoaded(true);
+		if (res) {
+			showNotification({
+				message: `Ссылка успешно добавлена`,
+				color: `green`,
+				icon: <Check/>,
+				disallowClose: true,
+			});
+		} else {
+			showNotification({
+				message: `Ошибка во время создания ссылки`,
+				color: `red`,
+				icon: <X/>,
+				disallowClose: true,
+			});
+		}
+	};
+
 	return (
 		<>
-			<form onChange={onChange}>
+			<form onChange={onChange} onSubmit={form.onSubmit(v => onSubmit(v))}>
 				<Grid columns={10}>
 					<Grid.Col span={7}>
 						<TextInput
@@ -111,7 +204,7 @@ export default function UrlApp() {
 							type="submit"
 							variant="outline"
 							disabled={form.errors.link != null}
-							loading={loaded}
+							loading={bLoaded}
 							fullWidth
 						>
 							Сократить
@@ -120,7 +213,7 @@ export default function UrlApp() {
 				</Grid>
 			</form>
 			<Space h={`lg`}/>
-			<Table style={{width: `800px`}}>
+			<Table striped style={{width: `800px`}}>
 				<thead>
 					<tr>
 						<th><Center>Ссылка</Center></th>
@@ -129,7 +222,7 @@ export default function UrlApp() {
 						<th></th>
 					</tr>
 				</thead>
-				<tbody>{rows}</tbody>
+				<tbody>{getRows()}</tbody>
 			</Table>
 		</>
 	);

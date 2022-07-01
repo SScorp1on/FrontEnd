@@ -3,6 +3,8 @@ import React, {useState} from "react";
 import {Button, Code, Grid, Mark, Modal, Space, Text} from "@mantine/core";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {showNotification} from "@mantine/notifications";
+import {X} from "tabler-icons-react";
 
 
 export interface UserSettingsProps {
@@ -24,30 +26,20 @@ export default function UserSettings({opened, setOpened}: UserSettingsProps) {
 		const token = localStorage.getItem(`accessToken`);
 		const res = await axios.get(`http://localhost:3000/user`, {headers: {"authorization": `Bearer ${token}`}})
 			.catch(async (e) => {
-				const status = e.response.status;
-
-				if (status === 401) {
-					const rToken = localStorage.getItem(`refreshToken`);
-					const r = await axios.post(`http://localhost:3000/auth/re-login`, {refresh: rToken}, {headers: {"authorization": `Bearer ${token}`}})
-						.catch(() => {
-							localStorage.removeItem(`accessToken`);
-							localStorage.removeItem(`refreshToken`);
-							navigate(`/login`);
-						});
-					localStorage.setItem(`accessToken`, r?.data.t.a);
-					localStorage.setItem(`refreshToken`, r?.data.t.r);
-					return await axios.get(`http://localhost:3000/user`, {headers: {"authorization": `Bearer ${token}`}});
-				}
-				localStorage.removeItem(`accessToken`);
-				localStorage.removeItem(`refreshToken`);
-				navigate(`/login`);
+				showNotification({
+					message: `Ошибка получения данных о пользователе`,
+					color: `red`,
+					icon: <X/>,
+					disallowClose: true,
+				});
+				navigate(`/control`);
 				return null;
 			});
 		if (!res) return;
 
 		setDiscordConnect((res.data.u.discordID != null));
 		setTwitchConnect((res.data.u.twitchID != null));
-		setUserHash(res.data.hash);
+		setUserHash(res.data.u.hash);
 
 		setDsReady(true);
 		setTwReady(true);

@@ -1,6 +1,7 @@
 import * as React from 'react';
-import {Box, ColorSchemeProvider, MantineProvider} from "@mantine/core";
+import {Box, MantineProvider} from "@mantine/core";
 import {NotificationsProvider} from "@mantine/notifications";
+import {ModalsProvider} from "@mantine/modals";
 
 export default function DefaultContainer({
 	children
@@ -14,11 +15,13 @@ export default function DefaultContainer({
 					colorScheme: `dark`,
 				}}
 			>
-				<Box>
-					<NotificationsProvider>
-						{children}
-					</NotificationsProvider>
-				</Box>
+				<ModalsProvider>
+					<Box>
+						<NotificationsProvider>
+							{children}
+						</NotificationsProvider>
+					</Box>
+				</ModalsProvider>
 			</MantineProvider>
 		</>
 	);
