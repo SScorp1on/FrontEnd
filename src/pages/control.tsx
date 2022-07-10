@@ -28,7 +28,8 @@ export default function Control() {
 				if (status === 401) {
 					const rToken = localStorage.getItem(`refreshToken`);
 					const r = await axios.post(`http://localhost:3000/auth/re-login`, {refresh: rToken}, {headers: {"authorization": `Bearer ${token}`}})
-						.catch(() => {
+						.catch((e) => {
+							console.log(e.response.data.errorMessage);
 							localStorage.removeItem(`accessToken`);
 							localStorage.removeItem(`refreshToken`);
 							showNotification({

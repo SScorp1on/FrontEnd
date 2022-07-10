@@ -27,7 +27,7 @@ export default function User() {
 		return (<></>);
 	}
 	const username = jwt<{username: string}>(token).username;
-	const url = `https://avatars.dicebear.com/api/avataaars/${username}.svg`;
+	const url = `https://avatars.dicebear.com/api/identicon/${username}.svg`;
 
 	return (
 		<>
@@ -58,7 +58,7 @@ export default function User() {
 					<Group>
 						<Avatar
 							src={url}
-							radius="xl"
+							radius="sm"
 						/>
 						<Box sx={{ flex: 1 }}>
 							<Text size="sm" weight={500}>

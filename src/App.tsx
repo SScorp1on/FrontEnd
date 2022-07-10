@@ -7,6 +7,7 @@ import Register from "./pages/register";
 import Control from "./pages/control";
 import TwitchOauth from "./pages/twitchOauth";
 import {Page404} from "./pages/404";
+import DiscordBot from "./pages/discord";
 
 function App() {
 	return (
@@ -41,6 +42,14 @@ function App() {
 					element={
 						<DefaultContainer>
 							<TwitchOauth />
+						</DefaultContainer>
+					}
+				/>
+				<Route
+					path={`/discord/bot`}
+					element={
+						<DefaultContainer>
+							<DiscordBot />
 						</DefaultContainer>
 					}
 				/>

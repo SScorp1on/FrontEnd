@@ -74,11 +74,11 @@ export function Page404() {
 						width: `80%`
 					}} className={classes.image}/>
 					<div className={classes.content}>
-						<Title className={classes.title}>Здесь ничего нет 😔</Title>
+						<Title className={classes.title}>Здесь ничего нет</Title>
 						<Text color="dimmed" size="lg" align="center"
 						      className={classes.description}>
-							Страница, которую вы пытаетесь открыть, не существует. Возможно
-							вы ошиблись в адресе или страница переехала на новый URL
+							Страница, которую ты пытаешься открыть, не существует. Возможно
+							ты ошибся в адресе или страница переехала на новый URL
 						</Text>
 						<Group position="center">
 							<Button variant={`outline`} onClick={onButton} size="md">Вернуться на главную</Button>
