@@ -1,6 +1,7 @@
 import UrlApp from "./urlApp";
 import {Box} from "@mantine/core";
 import DiscordApp from "./discordApp";
+import TvApp from "./tvApp";
 
 export interface MainAppProp {
 	appState: string
@@ -11,6 +12,7 @@ export default function MainApp({appState}: MainAppProp) {
 
 	if (appState === `url`) AppComponent = <UrlApp />;
 	if (appState === `discord`) AppComponent = <DiscordApp />;
+	if (appState === `tv`) AppComponent = <TvApp />;
 
 	return (
 		<>

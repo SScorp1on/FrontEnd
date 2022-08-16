@@ -57,7 +57,7 @@ export function Page404() {
 	const navigate = useNavigate();
 
 	const onButton = () => {
-		navigate(`/control`);
+		navigate(`/`);
 	};
 
 	return (
@@ -77,7 +77,7 @@ export function Page404() {
 						<Title className={classes.title}>Здесь ничего нет</Title>
 						<Text color="dimmed" size="lg" align="center"
 						      className={classes.description}>
-							Страница, которую ты пытаешься открыть, не существует. Возможно
+							Страница, которую ты пытаешься открыть, не существует. Возможно,
 							ты ошибся в адресе или страница переехала на новый URL
 						</Text>
 						<Group position="center">

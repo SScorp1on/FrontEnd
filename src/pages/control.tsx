@@ -18,7 +18,7 @@ const ym = function () {
 
 export default function Control() {
 	const navigate = useNavigate();
-	const [appState, setAppState] = useState(`discord`);
+	const [appState, setAppState] = useState(`tv`);
 
 	useEffect(() => {
 		const token = localStorage.getItem(`accessToken`);
@@ -64,6 +64,7 @@ export default function Control() {
 						<Link label={`Торговля`} IconProp={`trade`} setAppState={setAppState}/>
 						<Link label={`Discord`} IconProp={`discord`} setAppState={setAppState}/>
 						<Link label={`Twitch`} IconProp={`twitch`} setAppState={setAppState}/>
+						<Link label={`TV`} IconProp={`tv`} setAppState={setAppState}/>
 					</Navbar.Section>
 					<Navbar.Section>
 						<User/>

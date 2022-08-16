@@ -5,7 +5,7 @@ import {
 	BrandTwitch, CurrencyBitcoin,
 	CurrencyEthereum,
 	Link as LinkI,
-	ShoppingCart
+	ShoppingCart, Video
 } from "tabler-icons-react";
 
 export interface LinkProps {
@@ -29,6 +29,10 @@ export default function Link({ IconProp, label, setAppState }: LinkProps) {
 	}
 	if (IconProp === `cart`) Icon = <ShoppingCart size={20} />;
 	if (IconProp === `trade`) Icon = <CurrencyBitcoin size={20} />;
+	if (IconProp === `tv`) {
+		Icon = <Video size={20} />;
+		disabled = false;
+	}
 
 	if (disabled) {
 		return (<></>);
