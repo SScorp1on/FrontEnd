@@ -7,16 +7,22 @@ import {
 	Text,
 	Container,
 	Button,
+	Group,
+	Checkbox,
 } from "@mantine/core";
 import { useDocumentTitle } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
 
-export default function Register() {
-	useDocumentTitle(`Register`);
+export default function Login() {
+	useDocumentTitle(`Login`);
 	const navigate = useNavigate();
 
-	const toLogin = () => {
-		navigate(`/login`);
+	const toRegister = () => {
+		navigate(`/register`);
+	};
+
+	const toForgotPassword = () => {
+		navigate(`/password-forgot`);
 	};
 
 	return (
@@ -28,12 +34,12 @@ export default function Register() {
 					fontWeight: 900,
 				})}
 			>
-				Привет!
+				С возвращением!
 			</Title>
 			<Text color="dimmed" size="sm" align="center" mt={5}>
-				Уже есть аккаунт?{` `}
-				<Anchor<`a`> href="#" size="sm" onClick={toLogin}>
-					Войти
+				Еще нет аккаунта?{` `}
+				<Anchor<`a`> href="#" size="sm" onClick={toRegister}>
+					Регистрация
 				</Anchor>
 			</Text>
 
@@ -45,8 +51,14 @@ export default function Register() {
 					required
 					mt="md"
 				/>
+				<Group position="apart" mt="md">
+					<Checkbox label="Запомнить меня" />
+					<Anchor<`a`> onClick={toForgotPassword} href="#" size="sm">
+						Забыл пароль?
+					</Anchor>
+				</Group>
 				<Button fullWidth mt="xl">
-					Регистрация
+					Войти
 				</Button>
 			</Paper>
 		</Container>

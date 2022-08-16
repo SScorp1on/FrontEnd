@@ -8,6 +8,8 @@ import Control from "./pages/control";
 import TwitchOauth from "./pages/twitchOauth";
 import {Page404} from "./pages/404";
 import DiscordBot from "./pages/discord";
+import Login from './pages/login';
+import { ForgotPassword } from './pages/passwordForgot';
 
 function App() {
 	return (
@@ -22,10 +24,26 @@ function App() {
 					}
 				/>
 				<Route
-					path='/login'
+					path='/register'
 					element={
 						<DefaultContainer>
 							<Register />
+						</DefaultContainer>
+					}
+				/>
+				<Route
+					path='/login'
+					element={
+						<DefaultContainer>
+							<Login />
+						</DefaultContainer>
+					}
+				/>
+				<Route
+					path='/password-forgot'
+					element={
+						<DefaultContainer>
+							<ForgotPassword />
 						</DefaultContainer>
 					}
 				/>

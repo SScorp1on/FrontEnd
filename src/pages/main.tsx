@@ -27,9 +27,9 @@ export default function Main() {
 			header={
 				<Header height={70} p="md">
 					<Group grow>
-						<Button variant="subtle" color="gray" uppercase>Мастерская</Button>
+						<Button variant="subtle" color="gray" uppercase onClick={toWorkstation}>Мастерская</Button>
 						<Button variant="subtle" color="gray" uppercase></Button>
-						<Button variant="subtle" color="gray" uppercase>Инструменты</Button>
+						<Button variant="subtle" color="gray" uppercase onClick={toTools}>Инструменты</Button>
 					</Group>
 				</Header>
 			}
@@ -41,7 +41,7 @@ export default function Main() {
 						<Text style={{fontSize: `80pt`, marginLeft: `50px`}}>J</Text>
 						<Text style={{fontSize: `80pt`}}>O</Text>
 						<Text style={{fontSize: `80pt`}}>U</Text>
-						<Text style={{fontSize: `85pt`, transform: `rotate(180deg)`, marginTop: `10px`}}>R</Text>
+						<Text style={{fontSize: `85pt`, transform: `rotate(180deg)`, marginTop: `10px`, color: `red`}}>R</Text>
 						<Text style={{fontSize: `80pt`}}>L</Text>
 						<Text style={{fontSize: `80pt`}}>O</Text>
 						<Text style={{fontSize: `80pt`, marginRight: `50px`}}>Y</Text>
