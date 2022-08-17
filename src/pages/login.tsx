@@ -8,7 +8,6 @@ import {
 	Container,
 	Button,
 	Group,
-	Checkbox,
 } from "@mantine/core";
 import { useDocumentTitle } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
