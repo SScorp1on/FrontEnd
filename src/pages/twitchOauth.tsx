@@ -71,28 +71,18 @@ export default function TwitchOauth() {
 
 	return (
 		<>
-			<Box style={{
-				position: `absolute`, left: `50%`, top: `50%`,
-				transform: `translate(-50%, -50%)`,
-			}}>
+			<Box>
 				<Center>
-					<div style={{
-						display: `flex`,
-						justifyContent: `space-evenly`,
-						width: 900,
-					}}>
-						<Text style={{fontSize: `80pt`}}>T</Text>
+					<div style={{ position: `absolute`, left: `50%`, top: `50%`,
+						transform: `translate(-50%, -50%)`, display: `flex`, justifyContent: `space-between`, alignItems: `center`, width: `100%` }}>
+						<Text style={{fontSize: `80pt`, marginLeft: `50px`}}>T</Text>
 						<Text style={{fontSize: `80pt`}}>W</Text>
 						<Text style={{fontSize: `80pt`}}>I</Text>
 						<Text style={{fontSize: `80pt`}}>T</Text>
 						<Text style={{fontSize: `80pt`}}>C</Text>
-						<Text style={{fontSize: `80pt`}}>H</Text>
+						<Text style={{fontSize: `80pt`, marginRight: `50px`}}>H</Text>
 					</div>
-				</Center>
-				<Space w="xl"/>
-				<Space w="xl"/>
-				<Center>
-					<Loader color="violet" size="lg"/>
+					<Loader style={{ position: `absolute`, top: `60%`}} color="violet" size="lg"/>
 				</Center>
 			</Box>
 		</>
