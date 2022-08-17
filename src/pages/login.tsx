@@ -51,8 +51,7 @@ export default function Login() {
 					required
 					mt="md"
 				/>
-				<Group position="apart" mt="md">
-					<Checkbox label="Запомнить меня" />
+				<Group position="right" mt="md">
 					<Anchor<`a`> onClick={toForgotPassword} href="#" size="sm">
 						Забыл пароль?
 					</Anchor>

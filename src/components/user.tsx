@@ -1,75 +1,83 @@
-/* eslint no-console: 0*/
 import {
 	Avatar,
-	Box,
-	Group, Skeleton,
+	Button,
+	createStyles,
+	FileButton,
+	Group,
+	Input,
+	Modal,
 	Text,
 	UnstyledButton,
-	useMantineTheme
+	Space,
+	TextInput,
+	Grid,
+	Stack,
 } from "@mantine/core";
-import * as React from "react";
-import {ChevronLeft, ChevronRight} from "tabler-icons-react";
-import jwt from 'jwt-decode';
-import {useState} from "react";
-import UserSettings from "./userSettings";
-import {useNavigate} from "react-router-dom";
+import { useState } from "react";
+import { Check, Upload } from "tabler-icons-react";
 
-export default function User() {
-	const theme = useMantineTheme();
-	const [opened, setOpened] = useState(false);
-	const navigate = useNavigate();
+interface UserInterface {
+	username: string;
+	email: string;
+	avatar: string;
+}
 
-	const token = localStorage.getItem(`accessToken`);
-	if (!token) {
-		localStorage.removeItem(`accessToken`);
-		localStorage.removeItem(`refreshToken`);
-		navigate(`/login`);
-		return (<></>);
-	}
-	const username = jwt<{username: string}>(token).username;
-	const url = `https://avatars.dicebear.com/api/identicon/${username}.svg`;
+const useStyles = createStyles(theme => ({
+	user: {
+		display: `block`,
+		padding: theme.spacing.sm,
+		color: theme.colors.dark[0],
+		borderRadius: theme.radius.md,
+		"&:hover": {
+			backgroundColor: theme.colors.dark[8],
+		},
+	},
+}));
+
+export default function User({username, email, avatar}: UserInterface) {
+	const {classes} = useStyles();
+	const [opened, setOpened] = useState(true);
+	const [file, setFile] = useState<File | null>(null);
 
 	return (
 		<>
-			<UserSettings opened={opened} setOpened={setOpened} />
-			<Box
-				sx={{
-					paddingTop: theme.spacing.sm,
-					borderTop: `1px solid ${
-						theme.colors.dark[4]
-					}`,
-				}}
+			<Modal
+				opened={opened}
+				onClose={() => setOpened(false)}
+				withCloseButton={false}
 			>
-				<UnstyledButton
-					sx={{
-						display: `block`,
-						width: `100%`,
-						padding: theme.spacing.xs,
-						borderRadius: theme.radius.sm,
-						color: theme.colorScheme === `dark` ? theme.colors.dark[0] : theme.black,
+				<Grid>
+					<Grid.Col span={3}>
+						<Stack align="center" style={{width: `60px`}}>
+							<Avatar src={avatar} size="lg" style={{marginLeft: `20px`}} />
+							<FileButton onChange={setFile} accept="image/png,image/jpeg">
+								{(props) => <Button compact fullWidth style={{marginLeft: `20px`}} {...props}><Upload /></Button>}
+							</FileButton>
+						</Stack>
+					</Grid.Col>
+					<Grid.Col span={9}>
+						<Stack align="center" spacing="xs">
+							<TextInput size="md" style={{width: `100%`, marginTop: `8px`}} placeholder={`Изменить никнейм`} />
+							<Button fullWidth compact style={{marginTop: `12px`}} ><Check /></Button>
+						</Stack>
+					</Grid.Col>
+				</Grid>
 
-						'&:hover': {
-							backgroundColor:
-								theme.colorScheme === `dark` ? theme.colors.dark[6] : theme.colors.gray[0],
-						},
-					}}
-					onClick={() => setOpened(true)}
-				>
-					<Group>
-						<Avatar
-							src={url}
-							radius="sm"
-						/>
-						<Box sx={{ flex: 1 }}>
-							<Text size="sm" weight={500}>
-								{username}
-							</Text>
-						</Box>
+			</Modal>
 
-						{theme.dir === `ltr` ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-					</Group>
-				</UnstyledButton>
-			</Box>
+			<UnstyledButton onClick={() => { setOpened(true); }} className={classes.user}>
+				<Group>
+					<Avatar src={avatar} radius="sm" />
+					<div style={{flex: 1}}>
+						<Text size="sm" weight={500}>
+							{username}
+						</Text>
+						<Text color="dimmed" size="xs">
+							{email}
+						</Text>
+					</div>
+				</Group>
+			</UnstyledButton>
 		</>
 	);
 }

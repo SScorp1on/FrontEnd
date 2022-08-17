@@ -1,78 +1,88 @@
-/* eslint no-console: 0*/
-import * as React from "react";
-import {useEffect, useState} from "react";
-import {AppShell, Divider, Navbar} from "@mantine/core";
-import Link from "../components/link";
+import {useState} from "react";
+import {
+	AppShell,
+	Navbar,
+	Header,
+	Footer,
+	Aside,
+	Text,
+	MediaQuery,
+	Burger,
+	useMantineTheme,
+	Grid,
+	UnstyledButton,
+	Group,
+	Avatar,
+	createStyles,
+	Button,
+} from "@mantine/core";
+import {useDocumentTitle} from "@mantine/hooks";
+import { Login } from "tabler-icons-react";
 import User from "../components/user";
-import {useNavigate} from "react-router-dom";
-import MainApp from "../components/mainApp";
-import axios from "axios";
-import {showNotification} from "@mantine/notifications";
-import {X} from "tabler-icons-react";
+import { useNavigate } from "react-router-dom";
 
-const ym = function () {
-	return (
-		`<!-- /Yandex.Metrika counter -->`
-	);
-};
+interface UserInterface {
+	username: string;
+	email: string;
+	avatar: string;
+}
 
 export default function Control() {
+	useDocumentTitle(`Инструменты`);
+	const theme = useMantineTheme();
 	const navigate = useNavigate();
-	const [appState, setAppState] = useState(`tv`);
+	const [opened, setOpened] = useState(false);
+	const [user, setUser] = useState<null | UserInterface>(null);
 
-	useEffect(() => {
-		const token = localStorage.getItem(`accessToken`);
-		axios.get(`http://localhost:3000/user`, {headers: {"authorization": `Bearer ${token}`}})
-			.catch(async (e) => {
-				const status = e.response.status;
-				if (status === 401) {
-					const rToken = localStorage.getItem(`refreshToken`);
-					const r = await axios.post(`http://localhost:3000/auth/re-login`, {refresh: rToken}, {headers: {"authorization": `Bearer ${token}`}})
-						.catch((e) => {
-							console.log(e.response.data.errorMessage);
-							localStorage.removeItem(`accessToken`);
-							localStorage.removeItem(`refreshToken`);
-							showNotification({
-								message: `Сессия истекла`,
-								color: `red`,
-								icon: <X/>,
-								disallowClose: true,
-							});
-							navigate(`/login`);
-						});
-					localStorage.setItem(`accessToken`, r?.data.t.a);
-					localStorage.setItem(`refreshToken`, r?.data.t.r);
-				}
-				localStorage.removeItem(`accessToken`);
-				localStorage.removeItem(`refreshToken`);
-				navigate(`/login`);
-				return null;
-			});
-	});
+	const toLogin = () => {
+		navigate(`/login`);
+	};
 
 	return (
-		<>
-			<div dangerouslySetInnerHTML={{__html: ym()}}/>
+		<AppShell
+			navbarOffsetBreakpoint="sm"
+			asideOffsetBreakpoint="sm"
+			navbar={
+				<Navbar
+					p="md"
+					hiddenBreakpoint="sm"
+					hidden={!opened}
+					width={{sm: 200, lg: 300}}
+				>
+					<Text>Application navbar</Text>
+				</Navbar>
+			}
+			header={
+				<Header height={70} p="md">
+					<div style={{display: `flex`, alignItems: `center`, height: `100%`}}>
+						<MediaQuery largerThan="sm" styles={{display: `none`}}>
+							<Burger
+								opened={opened}
+								onClick={() => setOpened(o => !o)}
+								size="sm"
+								color={theme.colors.gray[6]}
+								mr="xl"
+							/>
+						</MediaQuery>
 
-			<AppShell
-				padding="md"
-				navbar={<Navbar width={{base: 300}} p="xs">
-					<Navbar.Section>{/* Header with logo */}</Navbar.Section>
-					<Navbar.Section grow mt="md">
-						<Link label={`Ссылки`} IconProp={`url`} setAppState={setAppState}/>
-						<Link label={`Продукты`} IconProp={`cart`} setAppState={setAppState}/>
-						<Link label={`Торговля`} IconProp={`trade`} setAppState={setAppState}/>
-						<Link label={`Discord`} IconProp={`discord`} setAppState={setAppState}/>
-						<Link label={`Twitch`} IconProp={`twitch`} setAppState={setAppState}/>
-						<Link label={`TV`} IconProp={`tv`} setAppState={setAppState}/>
-					</Navbar.Section>
-					<Navbar.Section>
-						<User/>
-					</Navbar.Section>
-				</Navbar>}
-			>
-				<MainApp appState={appState}/>
-			</AppShell>
-		</>
+						<Group style={{width: `100%`}} position="right">
+							{user ? (
+								<>
+									<User username={user.username} email={user.email} avatar={user.avatar} />
+								</>
+							) : (
+								<>
+									<Button onClick={toLogin} leftIcon={<Login />} variant="outline" radius="md" size="md" uppercase>
+										Войти
+									</Button>
+								</>
+							)}
+						</Group>
+					</div>
+				</Header>
+			}
+		>
+			<Text>Resize app to see responsive navbar in action</Text>
+		</AppShell>
 	);
 }
