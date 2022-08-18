@@ -52,7 +52,7 @@ export default function Control() {
 					hidden={!opened}
 					width={{sm: 200, lg: 300}}
 				>
-					<Link label="Films" IconProp="tv" setAppState={setPage} />
+					<Link label="Фильмы" IconProp="tv" setAppState={setPage} />
 				</Navbar>
 			}
 			header={
@@ -75,7 +75,7 @@ export default function Control() {
 								</>
 							) : (
 								<>
-									<Button onClick={toLogin} leftIcon={<Login />} variant="outline" radius="md" size="md" uppercase>
+									<Button onClick={toLogin} leftIcon={<Login />} variant="outline" radius="md" size="sm" uppercase>
 										Войти
 									</Button>
 								</>
