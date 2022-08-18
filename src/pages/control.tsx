@@ -22,6 +22,7 @@ import User from "../components/user";
 import { useNavigate } from "react-router-dom";
 import Link from "../components/link";
 import TvApp from "../components/tvApp";
+import DiscordApp from "../components/discordApp";
 
 interface UserInterface {
 	username: string;
@@ -53,6 +54,7 @@ export default function Control() {
 					width={{sm: 200, lg: 300}}
 				>
 					<Link label="Фильмы" IconProp="tv" setAppState={setPage} />
+					<Link label="Discord" IconProp="ds" setAppState={setPage} />
 				</Navbar>
 			}
 			header={
@@ -86,7 +88,8 @@ export default function Control() {
 			}
 		>
 			{
-				page === `tv` ? <TvApp /> : <></>
+				page === `tv` ? <TvApp /> : 
+					page === `ds` ? <DiscordApp /> : <></>
 			}
 		</AppShell>
 	);

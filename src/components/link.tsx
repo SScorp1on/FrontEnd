@@ -18,7 +18,7 @@ export default function Link({ IconProp, label, setAppState }: LinkProps) {
 	let Icon;
 	let disabled = true;
 
-	if (IconProp === `discord`) {
+	if (IconProp === `ds`) {
 		Icon = <BrandDiscord size={20} />;
 		disabled = false;
 	}
