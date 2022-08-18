@@ -34,10 +34,6 @@ export default function Link({ IconProp, label, setAppState }: LinkProps) {
 		disabled = false;
 	}
 
-	if (disabled) {
-		return (<></>);
-	}
-
 	const onButton = (s: string) => {
 		setAppState(s);
 	};
@@ -54,6 +50,7 @@ export default function Link({ IconProp, label, setAppState }: LinkProps) {
 					backgroundColor: theme.colors.dark[6],
 				},
 			})}
+			disabled={disabled}
 		>
 			<Group>
 				<ThemeIcon color={`white`} variant="outline" size={`md`}>

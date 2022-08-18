@@ -48,7 +48,7 @@ function App() {
 					}
 				/>
 				<Route
-					path='/control'
+					path='/tools'
 					element={
 						<DefaultContainer>
 							<Control />

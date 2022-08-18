@@ -20,6 +20,8 @@ import {useDocumentTitle} from "@mantine/hooks";
 import { Login } from "tabler-icons-react";
 import User from "../components/user";
 import { useNavigate } from "react-router-dom";
+import Link from "../components/link";
+import TvApp from "../components/tvApp";
 
 interface UserInterface {
 	username: string;
@@ -33,6 +35,7 @@ export default function Control() {
 	const navigate = useNavigate();
 	const [opened, setOpened] = useState(false);
 	const [user, setUser] = useState<null | UserInterface>(null);
+	const [page, setPage] = useState(``);
 
 	const toLogin = () => {
 		navigate(`/login`);
@@ -49,7 +52,7 @@ export default function Control() {
 					hidden={!opened}
 					width={{sm: 200, lg: 300}}
 				>
-					<Text>Application navbar</Text>
+					<Link label="Films" IconProp="tv" setAppState={setPage} />
 				</Navbar>
 			}
 			header={
@@ -82,7 +85,9 @@ export default function Control() {
 				</Header>
 			}
 		>
-			<Text>Resize app to see responsive navbar in action</Text>
+			{
+				page === `tv` ? <TvApp /> : <></>
+			}
 		</AppShell>
 	);
 }
