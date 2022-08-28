@@ -12,6 +12,6 @@ COPY . .
 
 RUN yarn build
 
-RUN serve out/
+RUN serve public/
 
 CMD ["node", "dist/main"]
