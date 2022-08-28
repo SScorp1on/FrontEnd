@@ -16,15 +16,9 @@ A microservice for my own backend for work with telegram
 $ yarn install
 ```
 
-## ENV
-
-Before running the app you should create `.env` file. Look into `.env.template` for help
-
 ## Running the app
 
 ### Docker
-
-![](https://img.shields.io/badge/-Not%20ready%20yet-red?style=flat-square)
 
 ```bash
 $ docker-compose up -d
@@ -34,6 +28,14 @@ $ docker-compose up -d
 ```bash
 # Development
 $ yarn start
+
+# Or for production
+
+# Build
+$ yarn build
+
+# Serve
+$ serve out/
 ```
 
 ## Test

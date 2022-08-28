@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+    app:
+        container_name: jourlay_web
+        build:
+            context: .
+        volumes:
+            - /app/node_modules
+        command: npm run start:prod
+        ports:
+            - "3000:3000"
+networks:
+    back:
