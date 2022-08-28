@@ -12,6 +12,6 @@ COPY . .
 
 RUN yarn build
 
-RUN serve out/ --port 3000
+RUN serve out/
 
 CMD ["node", "dist/main"]
