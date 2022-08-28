@@ -11,7 +11,3 @@ RUN npm i -g serve
 COPY . .
 
 RUN yarn build
-
-RUN serve public/
-
-CMD ["node", "dist/main"]
