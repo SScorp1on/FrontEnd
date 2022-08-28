@@ -31,3 +31,7 @@ yarn-error.log*
 *.launch
 .settings/
 *.sublime-workspace
+
+# NPM
+package-lock.json
+yarn.lock
