@@ -24,4 +24,5 @@ jobs:
                   script: |
                     cd ${{ secrets.FOLDER }}
                     git pull
+                    yarn install
                     yarn build
