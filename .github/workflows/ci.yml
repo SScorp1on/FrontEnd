@@ -7,8 +7,9 @@ on:
     workflow_dispatch:
 
 jobs:
-    deploy:
+    stage:
         name: Deploy
+        if: github.ref == 'refs/heads/stage'
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
@@ -22,7 +23,28 @@ jobs:
                   password: ${{ secrets.PASSWORD }}
                   script_stop: true
                   script: |
-                    cd ${{ secrets.FOLDER }}
-                    git pull
-                    yarn install
-                    yarn build
+                      cd ${{ secrets.FOLDER_STAGE }}
+                      git pull
+                      yarn install
+                      yarn build
+
+    deploy:
+        name: Deploy
+        if: github.ref == 'refs/heads/master'
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2.4.0
+            - name: Pull and run
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.HOST }}
+                  username: ${{ secrets.USERNAME }}
+                  port: ${{ secrets.PORT }}
+                  password: ${{ secrets.PASSWORD }}
+                  script_stop: true
+                  script: |
+                      cd ${{ secrets.FOLDER }}
+                      git pull
+                      yarn install
+                      yarn build
