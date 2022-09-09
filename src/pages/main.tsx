@@ -7,10 +7,10 @@ export default function Main() {
 	const navigate = useNavigate();
 
 	/**
-	 * Navigate user to workstation page
+	 * Navigate user to workshop page
 	 */
-	const toWorkstation = () => {
-		navigate(`/workstation`);
+	const toWorkshop = () => {
+		navigate(`/workshop`);
 	};
 
 	/**
@@ -27,9 +27,9 @@ export default function Main() {
 			header={
 				<Header height={70} p="md">
 					<Group grow>
-						<Button variant="subtle" color="gray" uppercase onClick={toWorkstation}>Мастерская</Button>
+						{/* <Button variant="subtle" color="gray" uppercase onClick={toWorkshop}>Мастерская</Button>
 						<Button variant="subtle" color="gray" uppercase></Button>
-						<Button variant="subtle" color="gray" uppercase onClick={toTools}>Инструменты</Button>
+						<Button variant="subtle" color="gray" uppercase onClick={toTools}>Инструменты</Button> */}
 					</Group>
 				</Header>
 			}
