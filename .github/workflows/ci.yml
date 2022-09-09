@@ -24,8 +24,8 @@ jobs:
                   script_stop: true
                   script: |
                       cd ${{ secrets.FOLDER_STAGE }}
-					  > .env
-					  echo DOCKER_PORT=${{ secrets.DOCKER_PORT_STAGE }}
+                      > .env
+                      echo DOCKER_PORT=${{ secrets.DOCKER_PORT_STAGE }}
                       git pull
                       yarn install
                       yarn build
@@ -47,8 +47,8 @@ jobs:
                   script_stop: true
                   script: |
                       cd ${{ secrets.FOLDER }}
-					  > .env
-					  echo DOCKER_PORT=${{ secrets.DOCKER_PORT }}
+                      > .env
+                      echo DOCKER_PORT=${{ secrets.DOCKER_PORT }}
                       git pull
                       yarn install
                       yarn build
