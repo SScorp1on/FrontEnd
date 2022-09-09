@@ -47,14 +47,14 @@ function App() {
 						</DefaultContainer>
 					}
 				/>
-				<Route
+				{/* <Route
 					path='/tools'
 					element={
 						<DefaultContainer>
 							<Control />
 						</DefaultContainer>
 					}
-				/>
+				/> */}
 				<Route
 					path={`/twitch/oauth`}
 					element={
