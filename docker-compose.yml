@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
     app:
-        container_name: jourlay_web
+        container_name: jourlay_web_${DOCKER_STATE}
         build:
             context: .
         volumes:
@@ -10,6 +10,6 @@ services:
             - /app/node_modules
         command: serve -s build
         ports:
-            - "3000:${DOCKER_PORT}"
+            - "${DOCKER_PORT}:3000"
 networks:
     back:

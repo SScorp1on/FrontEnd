@@ -25,6 +25,7 @@ jobs:
                       cd ${{ secrets.FOLDER_STAGE }}
                       > .env
                       echo DOCKER_PORT=${{ secrets.DOCKER_PORT_STAGE }} > .env
+                      echo DOCKER_STATE=stage > .env
                       git pull
                       yarn install
                       yarn build
