@@ -1,14 +1,14 @@
-name: Deploy to prod server
+name: Deploy to stage server
 
 on:
     push:
         branches:
-            - main
+            - stage
     workflow_dispatch:
 
 jobs:
-    deploy:
-        name: Deploy
+    stage:
+        name: Stage
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
@@ -22,10 +22,10 @@ jobs:
                   password: ${{ secrets.PASSWORD }}
                   script_stop: true
                   script: |
-                      cd ${{ secrets.FOLDER }}
+                      cd ${{ secrets.FOLDER_STAGE }}
                       > .env
-                      echo DOCKER_PORT=${{ secrets.DOCKER_PORT }} >> .env
-                      echo DOCKER_STATE=prod >> .env
+                      echo DOCKER_PORT=${{ secrets.DOCKER_PORT_STAGE }} >> .env
+                      echo DOCKER_STATE=stage >> .env
                       git pull
                       yarn install
                       yarn build
