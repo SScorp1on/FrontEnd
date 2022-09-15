@@ -4,22 +4,24 @@ import {
 	createStyles,
 	FileButton,
 	Group,
-	Input,
 	Modal,
 	Text,
 	UnstyledButton,
-	Space,
 	TextInput,
 	Grid,
 	Stack,
 } from "@mantine/core";
-import { useState } from "react";
-import { Check, Upload } from "tabler-icons-react";
+import {useState} from "react";
+import {Check, Upload, X} from "tabler-icons-react";
+import {createBackendContext} from "../context/axios.context";
+import {showNotification} from "@mantine/notifications";
+import * as React from "react";
 
-interface UserInterface {
+interface UserProp {
 	username: string;
 	email: string;
 	avatar: string;
+	setUserLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const useStyles = createStyles(theme => ({
@@ -34,10 +36,55 @@ const useStyles = createStyles(theme => ({
 	},
 }));
 
-export default function User({username, email, avatar}: UserInterface) {
+export default function User({username, email, avatar, setUserLoading}: UserProp) {
 	const {classes} = useStyles();
-	const [opened, setOpened] = useState(true);
+	const [opened, setOpened] = useState(false);
 	const [file, setFile] = useState<File | null>(null);
+
+	const [_username, setUsername] = useState(``);
+
+	const [loading, setLoading] = useState(false);
+
+	const onSubmit = async () => {
+		if (!Boolean(_username)) return;
+
+		setLoading(true);
+
+		const ctx = createBackendContext();
+		const res = await ctx.post(`user/username`, {username: _username})
+			.catch(e => {
+				if (!e.response.data.state) {
+					showNotification({
+						title: `Сервер не доступен`,
+						message: `Попробуй попозже`,
+						color: `red`,
+						icon: <X/>,
+						disallowClose: true,
+					});
+				} else {
+					console.log(e.response);
+					showNotification({
+						title: `Ошибка сервера`,
+						message: `Попробуй попозже`,
+						color: `red`,
+						icon: <X/>,
+						disallowClose: true,
+					});
+				}
+			});
+
+		setLoading(false);
+		setUserLoading(true);
+		if (!res) return;
+
+		showNotification({
+			title: `Успешно`,
+			message: `Имя пользователя изменено`,
+			color: `green`,
+			icon: <Check/>,
+			disallowClose: true,
+		});
+	};
 
 	return (
 		<>
@@ -49,25 +96,33 @@ export default function User({username, email, avatar}: UserInterface) {
 				<Grid>
 					<Grid.Col span={3}>
 						<Stack align="center" style={{width: `60px`}}>
-							<Avatar src={avatar} size="lg" style={{marginLeft: `20px`}} />
+							<Avatar src={avatar} size="lg" style={{marginLeft: `20px`}}/>
 							<FileButton onChange={setFile} accept="image/png,image/jpeg">
-								{(props) => <Button compact fullWidth style={{marginLeft: `20px`}} {...props}><Upload /></Button>}
+								{(props) => <Button compact fullWidth style={{marginLeft: `20px`}} {...props}><Upload/></Button>}
 							</FileButton>
 						</Stack>
 					</Grid.Col>
 					<Grid.Col span={9}>
 						<Stack align="center" spacing="xs">
-							<TextInput size="md" style={{width: `100%`, marginTop: `8px`}} placeholder={`Изменить никнейм`} />
-							<Button fullWidth compact style={{marginTop: `12px`}} ><Check /></Button>
+							<TextInput
+								size="md"
+								style={{width: `100%`, marginTop: `8px`}}
+								placeholder={`Изменить никнейм`}
+								onChange={(e) => setUsername(e.target.value)}
+							/>
+							<Button onClick={onSubmit} loading={loading} fullWidth compact
+							        style={{marginTop: `12px`}}><Check/></Button>
 						</Stack>
 					</Grid.Col>
 				</Grid>
 
 			</Modal>
 
-			<UnstyledButton onClick={() => { setOpened(true); }} className={classes.user}>
+			<UnstyledButton onClick={() => {
+				setOpened(true);
+			}} className={classes.user}>
 				<Group>
-					<Avatar src={avatar} radius="sm" />
+					<Avatar src={avatar} radius="sm"/>
 					<div style={{flex: 1}}>
 						<Text size="sm" weight={500}>
 							{username}

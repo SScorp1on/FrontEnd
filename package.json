@@ -16,12 +16,10 @@
     "@mantine/prism": "^5.1.6",
     "@mantine/rte": "^5.1.6",
     "@mantine/spotlight": "^5.1.6",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "dayjs": "^1.11.5",
     "embla-carousel-react": "^7.0.0",
+    "js-cookie": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
     "react": "^18.1.0",
@@ -33,11 +31,18 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
+    "@types/js-cookie": "^3.0.2",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^16.11.38",
     "@types/react": "^18.0.12",
-    "@types/react-dom": "^18.0.5"
+    "@types/react-dom": "^18.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.37.0",
+    "@typescript-eslint/parser": "^5.37.0",
+    "eslint": "8.22.0"
   },
   "scripts": {
     "start": "react-scripts start",
