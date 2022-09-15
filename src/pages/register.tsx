@@ -39,7 +39,7 @@ export default function Register() {
 			setEmailError(`Нужна настоящая почта`);
 		} else {
 			setEmailError(``);
-			setEmail(e.target.value);
+			setEmail(e.target.value.toLowerCase());
 		}
 	};
 
@@ -48,7 +48,7 @@ export default function Register() {
 			setPasswordError(`Минимум 8 символов, из них 1 буква и 1 цифра`);
 		} else {
 			setPasswordError(``);
-			setPassword(e.target.value);
+			setPassword(e.target.value.toLowerCase());
 		}
 	};
 

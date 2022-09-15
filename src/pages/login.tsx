@@ -139,14 +139,14 @@ export default function Login() {
 					label="Почта"
 					placeholder="твоя@почта.рф"
 					required
-					onChange={(e) => setEmail(e.target.value)}
+					onChange={(e) => setEmail(e.target.value.toLowerCase())}
 				/>
 				<PasswordInput
 					label="Пароль"
 					placeholder="Твой пароль"
 					required
 					mt="md"
-					onChange={(e) => setPassword(e.target.value)}
+					onChange={(e) => setPassword(e.target.value.toLowerCase())}
 				/>
 				<Group position="right" mt="md">
 					<Anchor<`a`> onClick={toForgotPassword} href="#" size="sm">
