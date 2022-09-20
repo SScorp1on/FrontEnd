@@ -1,6 +1,7 @@
 import {AppShell, Aside, Burger, Footer, Header, MediaQuery, Navbar, useMantineTheme, Text} from "@mantine/core";
 import {useState} from "react";
-import AdminMainApp from "../components/adminMainApp";
+import AdminMainApp from "../components/admin/adminMainApp";
+import Link from "../components/link";
 
 
 export default function Admin() {
@@ -19,7 +20,8 @@ export default function Admin() {
 			asideOffsetBreakpoint="sm"
 			navbar={
 				<Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
-					<Text>Application navbar</Text>
+					<Link IconProp={`keyboard`} label={`Клавиатуры`} setAppState={setApp} />
+					<Link IconProp={`users`} label={`Пользователи`} setAppState={setApp} />
 				</Navbar>
 			}
 			footer={
