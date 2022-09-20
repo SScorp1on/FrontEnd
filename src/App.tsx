@@ -10,6 +10,7 @@ import DiscordBot from "./pages/discord";
 import Login from './pages/login';
 import { ForgotPassword } from './pages/passwordForgot';
 import ShopPage from "./pages/shop";
+import Admin from "./pages/admin";
 
 function App() {
 	return (
@@ -68,6 +69,14 @@ function App() {
 					element={
 						<DefaultContainer>
 							<DiscordBot />
+						</DefaultContainer>
+					}
+				/>
+				<Route
+					path={`/admin`}
+					element={
+						<DefaultContainer>
+							<Admin />
 						</DefaultContainer>
 					}
 				/>
