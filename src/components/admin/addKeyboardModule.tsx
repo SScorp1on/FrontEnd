@@ -1,6 +1,19 @@
-import {Button, Checkbox, Group, Modal, NumberInput, Space, Stack, Textarea, TextInput, Center} from "@mantine/core";
+import {
+	Button,
+	Checkbox,
+	Group,
+	Modal,
+	NumberInput,
+	Space,
+	Stack,
+	Textarea,
+	TextInput,
+	Center,
+	FileInput
+} from "@mantine/core";
 import React, {useRef, useState} from "react";
 import {KeyboardCard} from "../Cards/keyboardCard";
+import {FileUpload} from "tabler-icons-react";
 
 export interface AddKeyboardModuleProp {
 	addKeyboard: boolean;
@@ -48,6 +61,14 @@ export default function AddKeyboardModule({addKeyboard, setAddKeyboard}: AddKeyb
 					label="Старая стоимость"
 					hideControls
 					onChange={(value) => setOldPrice(value || 0)}
+				/>
+				<FileInput
+					placeholder="Выбрать файлы"
+					label="Фотографии"
+					withAsterisk
+					multiple
+					accept={`image/png, image/jpeg`}
+					icon={<FileUpload color={`red`} />}
 				/>
 				<Checkbox
 					label="Ортогональная"

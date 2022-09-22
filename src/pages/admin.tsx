@@ -24,11 +24,6 @@ export default function Admin() {
 					<Link IconProp={`users`} label={`Пользователи`} setAppState={setApp} />
 				</Navbar>
 			}
-			footer={
-				<Footer height={60} p="md">
-					Application footer
-				</Footer>
-			}
 			header={
 				<Header height={70} p="md">
 					<div style={{ display: `flex`, alignItems: `center`, height: `100%` }}>

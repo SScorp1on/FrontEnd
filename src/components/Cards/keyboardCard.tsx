@@ -4,6 +4,12 @@ import {createStyles, Image, Card, Text, Group, Button, Badge, Indicator, Action
 import {Carousel} from '@mantine/carousel';
 import {IconHeart, IconShoppingCart, IconStar} from "@tabler/icons";
 
+const formatter = new Intl.NumberFormat(`ru-RU`, {
+	style: `currency`,
+	currency: `RUB`,
+	maximumFractionDigits: 0,
+});
+
 const useStyles = createStyles((theme, _params, getRef) => ({
 	price: {
 		color: theme.colors.red[6],
@@ -110,10 +116,10 @@ export const KeyboardCard = ({title, currentPrice, oldPrice, description, images
 				<Group position="apart" mt="md">
 					<div>
 						<Text size="xl" span weight={500} className={classes.price}>
-							{currentPrice}₽
+							{formatter.format(currentPrice)}
 						</Text>
 						{oldPrice !== 0 ? <Text strikethrough span size="sm" ml={10} color="dimmed">
-							{oldPrice}₽
+							{formatter.format(oldPrice)}
 						</Text> : <></>}
 					</div>
 					<Group>
