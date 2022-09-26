@@ -9,7 +9,7 @@ import {
 	Textarea,
 	TextInput,
 	Center,
-	FileInput
+	FileInput, useMantineTheme
 } from "@mantine/core";
 import React, {useRef, useState} from "react";
 import {KeyboardCard} from "../Cards/keyboardCard";
@@ -23,6 +23,7 @@ export interface AddKeyboardModuleProp {
 const defaultDescription = `Описание, не очень длинное и красивое, но самое важное - продающее. Удобно и точка.`;
 
 export default function AddKeyboardModule({addKeyboard, setAddKeyboard}: AddKeyboardModuleProp) {
+	const theme = useMantineTheme();
 
 	const [name, setName] = useState(`Keyboard`);
 	const [description, setDescription] = useState(defaultDescription);
@@ -68,7 +69,7 @@ export default function AddKeyboardModule({addKeyboard, setAddKeyboard}: AddKeyb
 					withAsterisk
 					multiple
 					accept={`image/png, image/jpeg`}
-					icon={<FileUpload color={`red`} />}
+					icon={<FileUpload color={theme.colors[`red`][6]} />}
 				/>
 				<Checkbox
 					label="Ортогональная"

@@ -33,7 +33,7 @@ const useStyles = createStyles((theme) => ({
 
 export default function AdminKeyboardApp() {
 	const {classes} = useStyles();
-	const [addKeyboard, setAddKeyboard] = useState(true);
+	const [addKeyboard, setAddKeyboard] = useState(false);
 
 	return (
 		<>
