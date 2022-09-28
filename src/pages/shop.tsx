@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {AppShell, Button, Group, Header, Text, Box, Loader, Center, Space, Stack} from "@mantine/core";
+import {AppShell, Button, Group, Header, Text, Box, Loader, Center, Space, Stack, Footer} from "@mantine/core";
 import {useNavigate} from "react-router-dom";
 import User from "../components/user";
 import {Login, X} from "tabler-icons-react";
 import {createBackendContext, updateTokens} from "../context/axios.context";
 import {showNotification} from "@mantine/notifications";
+import {KeyboardCard} from "../components/Cards/keyboardCard";
+import BuyFramework from "../components/shop/buyFramework";
 
 interface UserInterface {
 	username: string;
@@ -121,13 +123,17 @@ export default function ShopPage() {
 					</Group>
 				</Header>
 			}
+			footer={
+				<Footer height={60}>
+					<Group sx={{marginTop: 13, marginLeft: 13}} align={`center`}>
+						<Button variant={`outline`} color={`red`}>Доставка</Button>
+						<Button variant={`outline`} color={`red`}>Контакты</Button>
+					</Group>
+				</Footer>
+			}
 		>
 			{keyboards.length === 0 ? (
-				<Box style={{
-					position: `absolute`, left: `50%`, top: `50%`,
-					transform: `translate(-50%, -50%)`,
-					width: `90%`
-				}}>
+				<Box>
 					{keyboardsLoading ? (
 						<Stack>
 							<Center>
@@ -140,9 +146,9 @@ export default function ShopPage() {
 							</Center>
 						</Stack>
 					) : (
-						<Text align="center" sx={{fontSize: `15pt`}}>
-							Кажется тут ничего нет. Но скоро обязательно появится!
-						</Text>
+						<Group align={`top`}>
+							<BuyFramework />
+						</Group>
 					)}
 				</Box>
 			) : (

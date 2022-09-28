@@ -91,7 +91,16 @@ export default function AddKeyboardModule({addKeyboard, setAddKeyboard}: AddKeyb
 			<hr />
 			<Space h="lg" />
 			<Center>
-				<KeyboardCard title={name} currentPrice={price} oldPrice={oldPrice} images={[{image: `https://github.com/stevennguyen/framework/raw/master/images/1.jpg`}]} description={description} />
+				<KeyboardCard
+					title={name}
+					currentPrice={price}
+					oldPrice={oldPrice}
+					images={[
+						{image: `https://github.com/stevennguyen/framework/raw/master/images/1.jpg`}
+					]}
+					description={description}
+					setModuleState={() => null}
+				/>
 			</Center>
 		</Modal>
 	);

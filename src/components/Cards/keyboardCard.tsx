@@ -3,6 +3,7 @@
 import {createStyles, Image, Card, Text, Group, Button, Badge, Indicator, ActionIcon, Stack} from '@mantine/core';
 import {Carousel} from '@mantine/carousel';
 import {IconHeart, IconShoppingCart, IconStar} from "@tabler/icons";
+import React from "react";
 
 const formatter = new Intl.NumberFormat(`ru-RU`, {
 	style: `currency`,
@@ -74,9 +75,10 @@ interface KeyboardCardProps {
 	oldPrice: number;
 	images: IImage[];
 	description: string;
+	setModuleState: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const KeyboardCard = ({title, currentPrice, oldPrice, description, images}: KeyboardCardProps) => {
+export const KeyboardCard = ({title, currentPrice, oldPrice, description, images, setModuleState}: KeyboardCardProps) => {
 	const {classes} = useStyles();
 	const sale = Math.round((oldPrice - currentPrice) / oldPrice * 100);
 	const slides = images.map((image, index) => (
@@ -123,10 +125,12 @@ export const KeyboardCard = ({title, currentPrice, oldPrice, description, images
 						</Text> : <></>}
 					</div>
 					<Group>
-						<ActionIcon variant="default" radius="md" size={36}>
-							<IconHeart size={18} className={classes.like} stroke={1.5} />
-						</ActionIcon>
-						<ActionIcon variant="default" radius="md" size={36}>
+						<ActionIcon
+							variant="default"
+							radius="md"
+							size={36}
+							onClick={() => setModuleState(true)}
+						>
 							<IconShoppingCart size={18} className={classes.shop} stroke={1.5} />
 						</ActionIcon>
 					</Group>
