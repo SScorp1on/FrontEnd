@@ -7,6 +7,7 @@ import {createBackendContext, updateTokens} from "../context/axios.context";
 import {showNotification} from "@mantine/notifications";
 import {KeyboardCard} from "../components/Cards/keyboardCard";
 import BuyFramework from "../components/shop/buyFramework";
+import {useDocumentTitle} from "@mantine/hooks";
 
 interface UserInterface {
 	username: string;
@@ -27,6 +28,8 @@ interface KeyboardsInterface {
 }
 
 export default function ShopPage() {
+	useDocumentTitle(`Магазин`);
+
 	const navigate = useNavigate();
 
 	const [user, setUser] = useState<null | UserInterface>(null);
