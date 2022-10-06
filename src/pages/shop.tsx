@@ -7,6 +7,7 @@ import {createBackendContext, updateTokens} from "../context/axios.context";
 import BuyFramework from "../components/shop/buyFramework";
 import {useDocumentTitle} from "@mantine/hooks";
 import BuySofle from "../components/shop/buySofle";
+import BuyLily from "../components/shop/buyLily";
 
 interface UserInterface {
 	username: string;
@@ -103,6 +104,7 @@ export default function ShopPage() {
 			<Group align={`top`}>
 				<BuyFramework />
 				<BuySofle />
+				<BuyLily />
 			</Group>
 		</AppShell>
 	);
