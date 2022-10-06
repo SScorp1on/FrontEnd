@@ -1,5 +1,7 @@
 import {Button, Center, Modal, Radio, Select, Space, Stack, Text, Textarea} from "@mantine/core";
 import React, {useState} from "react";
+import {showNotification} from "@mantine/notifications";
+import {X} from "tabler-icons-react";
 
 export interface BuyModalProps {
 	buyKeyboard: boolean;
@@ -31,7 +33,18 @@ export default function BuyModal({buyKeyboard, setBuyKeyboard, wireless, name, c
 	const [keycapText, setKeycapText] = useState(``);
 	const [cableType, setCableType] = useState(``);
 
-	const data = cableTypesGet(cableKeyboardType);
+	const data = cableTypesGet(cableKeyboardType, wireless);
+	const totalPrice = 9990 + (cableType === `wireless` ? 3000 : 0);
+
+	const onButtonClick = () => {
+		showNotification({
+			title: `Извини`,
+			message: `Сейчас мы не готовы принять заказ`,
+			color: `red`,
+			icon: <X/>,
+			disallowClose: true,
+		});
+	};
 
 	return (
 		<Modal
@@ -94,21 +107,19 @@ export default function BuyModal({buyKeyboard, setBuyKeyboard, wireless, name, c
 					/>
 				</>
 			}
-			{wireless === true ?
-				<>
-				</> :
-				<>
-					<Space h={`md`}/>
-					<Select
-						label={`Выбери тип кабеля`}
-						onChange={(e) => setCableType(e || ``)}
-						data={data}
-					/>
-				</>
-			}
+			<Space h={`md`}/>
+			<Select
+				label={`Выбери тип кабеля`}
+				onChange={(e) => setCableType(e || ``)}
+				data={data}
+			/>
 			<Stack align={`center`} sx={{marginTop: `40px`}}>
-				<Text color={`red`} weight={700} sx={{fontSize: 25}}>Итоговая цена: {formatter.format(9999)}</Text>
-				<Button fullWidth color={`red`}>
+				<Text color={`red`} weight={700} sx={{fontSize: 25}}>Итоговая цена: {formatter.format(totalPrice)}</Text>
+				<Button
+					fullWidth
+					color={`red`}
+					onClick={onButtonClick}
+				>
 					Купить
 				</Button>
 			</Stack>

@@ -17,7 +17,7 @@ export default function BuyFramework() {
 			/>
 			<KeyboardCard
 				title={`Framework`}
-				currentPrice={9999}
+				currentPrice={9990}
 				oldPrice={14999}
 				images={[
 					{image: `https://github.com/stevennguyen/framework/blob/master/images/1.jpg?raw=true}`},
