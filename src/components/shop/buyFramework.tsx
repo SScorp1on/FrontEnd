@@ -25,7 +25,7 @@ export default function BuyFramework() {
 					{image: `https://github.com/stevennguyen/framework/blob/master/images/3.jpg?raw=true`},
 					{image: `https://github.com/stevennguyen/framework/blob/master/images/4.jpg?raw=true`},
 				]}
-				description={`Удобная ортогональная 5х12 клавиатура с одним регулятором громкости`}
+				description={`Удобная ортогональная 5х12 клавиатура с одним экодером и открытыми компонентами платы`}
 				setModuleState={setBuyKeyboard}
 			/>
 		</>
