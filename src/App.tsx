@@ -4,12 +4,13 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Main from './pages/main';
 import DefaultContainer from "./containers";
 import Register from "./pages/register";
-import Control from "./pages/control";
 import TwitchOauth from "./pages/twitchOauth";
 import {Page404} from "./pages/404";
 import DiscordBot from "./pages/discord";
 import Login from './pages/login';
 import { ForgotPassword } from './pages/passwordForgot';
+import ShopPage from "./pages/shop";
+import Admin from "./pages/admin";
 
 function App() {
 	return (
@@ -47,14 +48,14 @@ function App() {
 						</DefaultContainer>
 					}
 				/>
-				{/* <Route
-					path='/tools'
+				<Route
+					path='/shop'
 					element={
 						<DefaultContainer>
-							<Control />
+							<ShopPage />
 						</DefaultContainer>
 					}
-				/> */}
+				/>
 				<Route
 					path={`/twitch/oauth`}
 					element={
@@ -68,6 +69,14 @@ function App() {
 					element={
 						<DefaultContainer>
 							<DiscordBot />
+						</DefaultContainer>
+					}
+				/>
+				<Route
+					path={`/admin`}
+					element={
+						<DefaultContainer>
+							<Admin />
 						</DefaultContainer>
 					}
 				/>

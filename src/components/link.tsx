@@ -3,9 +3,9 @@ import * as React from "react";
 import {
 	BrandDiscord,
 	BrandTwitch, CurrencyBitcoin,
-	CurrencyEthereum,
+	CurrencyEthereum, Keyboard,
 	Link as LinkI,
-	ShoppingCart, Video
+	ShoppingCart, Users, Video
 } from "tabler-icons-react";
 
 export interface LinkProps {
@@ -34,6 +34,15 @@ export default function Link({ IconProp, label, setAppState }: LinkProps) {
 		disabled = false;
 	}
 
+	if (IconProp === `keyboard`) {
+		Icon = <Keyboard size={20} color="red" />;
+		disabled = false;
+	}
+	if (IconProp === `users`) {
+		Icon = <Users size={20} color="red" />;
+		disabled = false;
+	}
+
 	const onButton = (s: string) => {
 		setAppState(s);
 	};
@@ -53,7 +62,7 @@ export default function Link({ IconProp, label, setAppState }: LinkProps) {
 			disabled={disabled}
 		>
 			<Group>
-				<ThemeIcon color={`white`} variant="outline" size={`md`}>
+				<ThemeIcon color={`red`} variant="outline" size={`lg`}>
 					{Icon}
 				</ThemeIcon>
 				<Text size="md">{label}</Text>
