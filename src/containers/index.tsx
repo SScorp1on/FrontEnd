@@ -3,9 +3,7 @@ import {Box, Button, ButtonStylesParams, MantineProvider, useMantineTheme} from 
 import {NotificationsProvider} from "@mantine/notifications";
 import {ModalsProvider} from "@mantine/modals";
 
-export default function DefaultContainer({
-	children
-}: { children?: React.ReactElement }) {
+export default function DefaultContainer({children}: { children?: React.ReactElement }) {
 	const theme = useMantineTheme();
 
 	return (
