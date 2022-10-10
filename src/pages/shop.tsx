@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {AppShell, Button, Group, Header, Footer} from "@mantine/core";
+import {AppShell, Button, Group, Header, Footer, Grid} from "@mantine/core";
 import {useNavigate} from "react-router-dom";
 import User from "../components/user";
 import {Login, X} from "tabler-icons-react";
@@ -62,46 +62,49 @@ export default function ShopPage() {
 			asideOffsetBreakpoint="sm"
 			header={
 				<Header height={70}>
-					<Group style={{width: `100%`}} position="right">
-						{user ? (
-							<>
-								<User
-									username={user.username}
-									email={user.email}
-									avatar={user.avatar}
-									setUserLoading={setUserLoading}
-								/>
-							</>
-						) : (
-							<>
-								<Button
-									onClick={toLogin}
-									leftIcon={<Login/>}
-									variant="outline"
-									radius="md"
-									size="sm"
-									uppercase
-									loading={userLoading}
-									sx={{marginTop: `15px`, marginRight: `15px`}}
-								>
-									Войти
-								</Button>
-							</>
-						)}
+					<Group position={`right`}>
+						<Group style={{marginRight: `5px`}} position={`right`}>
+							{user ? (
+								<>
+									<User
+										username={user.username}
+										email={user.email}
+										avatar={user.avatar}
+										setUserLoading={setUserLoading}
+									/>
+								</>
+							) : (
+								<>
+									<Button
+										onClick={toLogin}
+										leftIcon={<Login/>}
+										variant="outline"
+										radius="md"
+										size="sm"
+										uppercase
+										loading={userLoading}
+										sx={{marginTop: `15px`, marginRight: `15px`}}
+									>
+										Войти
+									</Button>
+								</>
+							)}
+						</Group>
 					</Group>
 				</Header>
 			}
 			footer={
 				<Footer height={60}>
-					<Group sx={{marginTop: 13, marginLeft: 13}} align={`center`}>
-						<Button variant={`outline`} color={`red`}>Доставка</Button>
-						<Button variant={`outline`} color={`red`}>Контакты</Button>
-						<Button variant={`outline`} color={`red`}>Вакансии</Button>
+					<Group sx={{marginTop: 13, marginLeft: 13}} position={`center`} align={`center`}>
+						<Button variant={`outline`}>Доставка</Button>
+						<Button variant={`outline`}>Контакты</Button>
+						<Button variant={`outline`}>Вакансии</Button>
+						<Button variant={`outline`}>Возврат</Button>
 					</Group>
 				</Footer>
 			}
 		>
-			<Group align={`top`}>
+			<Group position="apart" align={`top`}>
 				<BuyFramework />
 				<BuySofle />
 				<BuyLily />

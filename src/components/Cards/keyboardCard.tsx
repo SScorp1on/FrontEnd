@@ -1,9 +1,22 @@
 // Thanks SScorp1on
 
-import {createStyles, Image, Card, Text, Group, Button, Badge, Indicator, ActionIcon, Stack} from '@mantine/core';
+import {
+	createStyles,
+	Image,
+	Card,
+	Text,
+	Group,
+	Center,
+	Badge,
+	Indicator,
+	ActionIcon,
+	Stack,
+	useMantineTheme
+} from '@mantine/core';
 import {Carousel} from '@mantine/carousel';
 import {IconHeart, IconShoppingCart, IconStar} from "@tabler/icons";
 import React from "react";
+import {useTheme} from "@emotion/react";
 
 const formatter = new Intl.NumberFormat(`ru-RU`, {
 	style: `currency`,
@@ -28,13 +41,13 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 		left: `5px`
 	},
 	carousel: {
+		width: `100%`,
 		'&:hover': {
 			[`& .${getRef(`carouselControls`)}`]: {
 				opacity: 1,
 			},
 		},
 	},
-
 	carouselControls: {
 		ref: getRef(`carouselControls`),
 		transition: `opacity 150ms ease`,
@@ -48,11 +61,8 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 		paddingRight: theme.spacing.md,
 		paddingBottom: theme.spacing.md,
 	},
-	like: {
-		color: theme.colors.red[6],
-	},
 	shop: {
-		color: theme.colors.blue[6],
+		color: theme.colors.dark[6],
 	},
 	carouselIndicator: {
 		width: 4,
@@ -80,6 +90,8 @@ interface KeyboardCardProps {
 
 export const KeyboardCard = ({title, currentPrice, oldPrice, description, images, setModuleState}: KeyboardCardProps) => {
 	const {classes} = useStyles();
+	const theme = useMantineTheme();
+
 	const sale = Math.round((oldPrice - currentPrice) / oldPrice * 100);
 	const slides = images.map((image, index) => (
 		<Carousel.Slide key={index}>
@@ -88,7 +100,16 @@ export const KeyboardCard = ({title, currentPrice, oldPrice, description, images
 	));
 
 	return (
-		<Card radius="md" style={{width: 300}} withBorder p="xl">
+		<Card
+			radius="md"
+			style={{
+				width: 300,
+			}}
+			p="xl"
+			shadow={`md`}
+			withBorder
+
+		>
 			<Card.Section>
 				<Carousel
 					loop
@@ -100,7 +121,7 @@ export const KeyboardCard = ({title, currentPrice, oldPrice, description, images
 				>
 					{slides}
 				</Carousel>
-				{oldPrice !== 0 ? <Badge className={classes.sale} variant="filled" color="red">
+				{oldPrice !== 0 ? <Badge className={classes.sale} variant="filled" color="red" radius={`sm`}>
 					Скидка {sale}%
 				</Badge> : <></>}
 			</Card.Section>
@@ -130,6 +151,9 @@ export const KeyboardCard = ({title, currentPrice, oldPrice, description, images
 							radius="md"
 							size={36}
 							onClick={() => setModuleState(true)}
+							style={{
+								borderColor: theme.colors.dark[7]
+							}}
 						>
 							<IconShoppingCart size={18} className={classes.shop} stroke={1.5} />
 						</ActionIcon>

@@ -31,7 +31,7 @@ const useStyles = createStyles(theme => ({
 		color: theme.colors.dark[0],
 		borderRadius: theme.radius.md,
 		"&:hover": {
-			backgroundColor: theme.colors.dark[8],
+			backgroundColor: theme.colors.gray[1],
 		},
 	},
 }));
@@ -124,7 +124,7 @@ export default function User({username, email, avatar, setUserLoading}: UserProp
 				<Group>
 					<Avatar src={avatar} radius="sm"/>
 					<div style={{flex: 1}}>
-						<Text size="sm" weight={500}>
+						<Text size="sm" color={`black`} weight={700}>
 							{username}
 						</Text>
 						<Text color="dimmed" size="xs">
