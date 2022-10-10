@@ -1,6 +1,6 @@
 import {
 	Button,
-	Center,
+	Center, createStyles,
 	Group,
 	Modal,
 	Radio,
@@ -77,6 +77,11 @@ export default function BuyModal({buyKeyboard, setBuyKeyboard, wireless, name, c
 				defaultValue={`off`}
 				onChange={(e) => setKeycapText(e || `off`)}
 				styles={(theme) => ({
+					input: {
+						borderColor: theme.colors.dark[7],
+						'&:hover': { borderColor: theme.colors.dark[7] },
+						'&:focus': { borderColor: theme.colors.dark[7] },
+					},
 					item: {
 						// applies styles to selected item
 						'&[data-selected]': {
@@ -109,6 +114,22 @@ export default function BuyModal({buyKeyboard, setBuyKeyboard, wireless, name, c
 						label={`Выбери цвет свитчей`}
 						defaultValue={`brown`}
 						onChange={(e) => setSwitchColor(e || `brown`)}
+						styles={(theme) => ({
+							input: {
+								borderColor: theme.colors.dark[7],
+								'&:hover': { borderColor: theme.colors.dark[7] },
+								'&:focus': { borderColor: theme.colors.dark[7] },
+							},
+							item: {
+								// applies styles to selected item
+								'&[data-selected]': {
+									'&, &:hover': {
+										backgroundColor: theme.colors.dark[7],
+										color: `white`,
+									},
+								},
+							},
+						})}
 						data={[
 							{value: `brown`, label: `Коричневые`},
 							{value: `red`, label: `Красные`},
@@ -122,6 +143,22 @@ export default function BuyModal({buyKeyboard, setBuyKeyboard, wireless, name, c
 						label={`Выбери цвет клавиш`}
 						defaultValue={`white`}
 						onChange={(e) => setKeycapColor(e || `white`)}
+						styles={(theme) => ({
+							input: {
+								borderColor: theme.colors.dark[7],
+								'&:hover': { borderColor: theme.colors.dark[7] },
+								'&:focus': { borderColor: theme.colors.dark[7] },
+							},
+							item: {
+								// applies styles to selected item
+								'&[data-selected]': {
+									'&, &:hover': {
+										backgroundColor: theme.colors.dark[7],
+										color: `white`,
+									},
+								},
+							},
+						})}
 						data={[
 							{value: `red`, label: `Красные`},
 							{value: `yellow`, label: `Желтые`},
@@ -148,6 +185,22 @@ export default function BuyModal({buyKeyboard, setBuyKeyboard, wireless, name, c
 					<Select
 						label={`Выбери тип кабеля`}
 						onChange={(e) => setCableType(e || ``)}
+						styles={(theme) => ({
+							input: {
+								borderColor: theme.colors.dark[7],
+								'&:hover': { borderColor: theme.colors.dark[7] },
+								'&:focus': { borderColor: theme.colors.dark[7] },
+							},
+							item: {
+								// applies styles to selected item
+								'&[data-selected]': {
+									'&, &:hover': {
+										backgroundColor: theme.colors.dark[7],
+										color: `white`,
+									},
+								},
+							},
+						})}
 						data={data}
 					/>
 					<Space h={`md`}/>
