@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Box, Button, ButtonStylesParams, MantineProvider, useMantineTheme} from "@mantine/core";
+import {Box, MantineProvider, useMantineTheme} from "@mantine/core";
 import {NotificationsProvider} from "@mantine/notifications";
 import {ModalsProvider} from "@mantine/modals";
 
@@ -17,6 +17,7 @@ export default function DefaultContainer({children}: { children?: React.ReactEle
 						Button: {
 							defaultProps: {
 								color: `dark`,
+								radius: theme.radius.md,
 							},
 						},
 					}

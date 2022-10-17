@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {AppShell, Button, Group, Header, Footer, Grid} from "@mantine/core";
+import {AppShell, Button, Group, Header, Footer, Center} from "@mantine/core";
 import {useNavigate} from "react-router-dom";
 import User from "../components/user";
 import {Login, X} from "tabler-icons-react";
@@ -8,6 +8,8 @@ import BuyFramework from "../components/shop/buyFramework";
 import {useDocumentTitle} from "@mantine/hooks";
 import BuySofle from "../components/shop/buySofle";
 import BuyLily from "../components/shop/buyLily";
+import BuyHelix from "../components/shop/buyHelix";
+import BuyErgodash from "../components/shop/buyErgodash";
 
 interface UserInterface {
 	username: string;
@@ -104,10 +106,12 @@ export default function ShopPage() {
 				</Footer>
 			}
 		>
-			<Group position="apart" align={`top`}>
-				<BuyFramework />
-				<BuySofle />
-				<BuyLily />
+			<Group position="center" align={`top`} spacing={`xl`}>
+				<BuyFramework/>
+				<BuySofle/>
+				<BuyLily/>
+				<BuyHelix/>
+				<BuyErgodash/>
 			</Group>
 		</AppShell>
 	);

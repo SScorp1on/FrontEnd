@@ -95,7 +95,7 @@ export const KeyboardCard = ({title, currentPrice, oldPrice, description, images
 	const sale = Math.round((oldPrice - currentPrice) / oldPrice * 100);
 	const slides = images.map((image, index) => (
 		<Carousel.Slide key={index}>
-			<Image src={image.image} width={300} height={150} fit={`fill`}/>
+			<Image src={image.image} width={300} height={150} radius={9} fit={`cover`}/>
 		</Carousel.Slide>
 	));
 
