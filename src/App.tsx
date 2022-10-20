@@ -1,16 +1,15 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Main from './pages/main';
 import DefaultContainer from "./containers";
 import Register from "./pages/register";
-import TwitchOauth from "./pages/twitchOauth";
 import {Page404} from "./pages/404";
-import DiscordBot from "./pages/discord";
 import Login from './pages/login';
-import { ForgotPassword } from './pages/passwordForgot';
+import {ForgotPassword} from './pages/passwordForgot';
 import ShopPage from "./pages/shop";
 import Admin from "./pages/admin";
+import WaitingPage from "./pages/shop/waiting";
 
 function App() {
 	return (
@@ -20,7 +19,7 @@ function App() {
 					path='/'
 					element={
 						<DefaultContainer>
-							<Main />
+							<Main/>
 						</DefaultContainer>
 					}
 				/>
@@ -28,7 +27,7 @@ function App() {
 					path='/register'
 					element={
 						<DefaultContainer>
-							<Register />
+							<Register/>
 						</DefaultContainer>
 					}
 				/>
@@ -36,7 +35,7 @@ function App() {
 					path='/login'
 					element={
 						<DefaultContainer>
-							<Login />
+							<Login/>
 						</DefaultContainer>
 					}
 				/>
@@ -44,7 +43,7 @@ function App() {
 					path='/password-forgot'
 					element={
 						<DefaultContainer>
-							<ForgotPassword />
+							<ForgotPassword/>
 						</DefaultContainer>
 					}
 				/>
@@ -52,23 +51,15 @@ function App() {
 					path='/shop'
 					element={
 						<DefaultContainer>
-							<ShopPage />
+							<ShopPage/>
 						</DefaultContainer>
 					}
 				/>
 				<Route
-					path={`/twitch/oauth`}
+					path='/shop/waiting'
 					element={
 						<DefaultContainer>
-							<TwitchOauth />
-						</DefaultContainer>
-					}
-				/>
-				<Route
-					path={`/discord/bot`}
-					element={
-						<DefaultContainer>
-							<DiscordBot />
+							<WaitingPage/>
 						</DefaultContainer>
 					}
 				/>
@@ -76,7 +67,7 @@ function App() {
 					path={`/admin`}
 					element={
 						<DefaultContainer>
-							<Admin />
+							<Admin/>
 						</DefaultContainer>
 					}
 				/>

@@ -214,14 +214,18 @@ export default function BuyModal({buyKeyboard, setBuyKeyboard, wireless, name, c
 				</>
 			}
 			<Stack align={`center`} sx={{marginTop: `40px`}}>
-				<Text color={`dark`} weight={700} sx={{fontSize: 25}}>Итоговая
-					цена: {formatter.format(totalPrice)}</Text>
+				<Text color={`dark`} weight={700} sx={{fontSize: 18, marginTop: `-15px`}}>
+					Время ожидания: 30 дней
+				</Text>
+				<Text variant={`link`} component={`a`} href={`/shop/waiting`} sx={{fontSize: 12, marginTop: `-20px`}}>
+					Почему нужно ждать?
+				</Text>
 				<Button
 					fullWidth
 					color={`dark`}
 					onClick={onButtonClick}
 				>
-					Купить
+					Купить за {formatter.format(10990)}
 				</Button>
 			</Stack>
 		</Modal>

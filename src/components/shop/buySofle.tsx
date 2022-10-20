@@ -24,7 +24,7 @@ export default function BuySofle() {
 					{image: `https://github.com/josefadamcik/SofleKeyboard/raw/master/Images/IMG_20191110_131443.jpg`},
 					{image: `https://github.com/josefadamcik/SofleKeyboard/blob/master/Images/IMG_20200126_114622.jpg?raw=true`},
 				]}
-				description={`Популярная 4х6 + 5 клавиш сплит клавиатура с двумя энкодерами и удобным дизайном`}
+				description={`Одна из самых популяпрных сплит клавиатур с 58 клавишами и двумя энкодерами`}
 				setModuleState={setBuyKeyboard}
 			/>
 		</>
