@@ -10,6 +10,7 @@ import {ForgotPassword} from './pages/passwordForgot';
 import ShopPage from "./pages/shop";
 import Admin from "./pages/admin";
 import WaitingPage from "./pages/shop/waiting";
+import FrameworkPage from "./pages/shop/framework";
 
 function App() {
 	return (
@@ -60,6 +61,14 @@ function App() {
 					element={
 						<DefaultContainer>
 							<WaitingPage/>
+						</DefaultContainer>
+					}
+				/>
+				<Route
+					path='/shop/framework'
+					element={
+						<DefaultContainer>
+							<FrameworkPage/>
 						</DefaultContainer>
 					}
 				/>
