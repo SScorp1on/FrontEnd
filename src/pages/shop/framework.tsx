@@ -8,7 +8,12 @@ import {
 	Stack,
 	Text,
 	Card,
-	Box, Center, Space, Select, Textarea, useMantineTheme, Image, createStyles,
+	Center,
+	Select,
+	useMantineTheme,
+	Image,
+	Divider,
+	Mark, Space,
 } from "@mantine/core";
 import {At, Ce, Login, X} from "tabler-icons-react";
 import User from "../../components/user";
@@ -39,7 +44,7 @@ const img = [
 
 const slides = img.map((image, index) => (
 	<Carousel.Slide key={index}>
-		<Image src={image.image} width={500} height={400} radius={9} fit={`cover`}/>
+		<Image src={image.image} width={550} height={400} radius={9} fit={`cover`}/>
 	</Carousel.Slide>
 ));
 
@@ -182,7 +187,6 @@ export default function FrameworkPage() {
 			>
 				<Center>
 					<Stack align={`center`}>
-						<Space h={`xl`}/>
 						<Group position={`center`} spacing={`xl`}>
 							<Card
 								style={{
@@ -196,12 +200,11 @@ export default function FrameworkPage() {
 									{slides}
 								</Carousel>
 							</Card>
-							<Box style={{height: `550px`}}>
+							<Stack style={{height: `550px`}} justify={`center`}>
 								<Center>
 									<Text color={`dark`} weight={700} sx={{fontSize: 35}}>Framework</Text>
 								</Center>
-								<Space h={`xl`}/>
-								<Stack style={{height: `320px`}} justify={`center`}>
+								<Stack>
 									<Select
 										label={`Выберите маркировку на клавишах`}
 										defaultValue={`off`}
@@ -324,7 +327,6 @@ export default function FrameworkPage() {
 										</>
 									}
 								</Stack>
-								<Space h={`xs`}/>
 								<Stack align={`center`} sx={{marginTop: `40px`}}>
 									<Text color={`dark`} weight={700} sx={{fontSize: 18, marginTop: `-15px`}}>
 										Время ожидания: 30 дней
@@ -341,7 +343,68 @@ export default function FrameworkPage() {
 										Купить за {formatter.format(10990)}
 									</Button>
 								</Stack>
-							</Box>
+							</Stack>
+						</Group>
+						<Divider
+							my={`sm`}
+							color={`red`}
+							style={{
+								width: `100%`,
+								height: `10px`,
+								maxWidth: `1150px`
+							}}
+						/>
+						<Space h={`md`}/>
+						<Group>
+							<Stack style={{maxWidth: `700px`}}>
+								<Text>
+									<Text weight={700} color={`red`} span>Framework</Text> - ортогональная клавиатура.
+									Она имеет 59 клавиш. Обычно, такого количества клавиш как раз хватает для работы,
+									учебы и игр
+								</Text>
+								<Space h={`xs`}/>
+								<Text>
+									Энкодер отлично справится с задачами, свазанными с громкостью. Ты можешь делать
+									тише или громче, можно даже поставить или снять с паузы текущий трек
+								</Text>
+								<Space h={`xs`}/>
+								<Text>
+									Если количества клавиш не хватит, то всегда имеется возможность использовать слои.
+									Слои - это когда ты зажимаешь одну, специально назначенную клавишу, и все кнопки изменяют
+									свое значение. Настраивается это в специальной программе, писать самому ничего не нужно
+								</Text>
+								<Space h={`xs`}/>
+								<Text>
+									Это можно сравнить с цифровым рядом на обычной клавиатуре. Когда ты нажимаешь
+									на цифру без шифта - отображается цифра. Когда нажимаешь на цифру с зажатым шифтом - отображается
+									символ. Так же и здесь, только эту функцию можно назначить на <Text color={`red`} span>любую</Text> клавишу,
+									как и значение, которое будет отображаться по нажатию
+								</Text>
+							</Stack>
+						</Group>
+						<Space h={`xs`}/>
+						<Space h={`xs`}/>
+						<Divider
+							color={`red`}
+							style={{
+								width: `100%`,
+								height: `10px`,
+								maxWidth: `1150px`
+							}}
+						/>
+						<Group spacing={`xl`}>
+							<Stack align={`center`} spacing={`md`}>
+								<Text size={18} weight={600}>Характеристики</Text>
+								<Stack spacing={`xs`}>
+									<Text size={14} color={`dimmed`}>Количество клавиш: 59</Text>
+									<Text size={14} color={`dimmed`}>Количество энкодеров: 1</Text>
+									<Text size={14} color={`dimmed`}>Разъем: Type-C</Text>
+								</Stack>
+							</Stack>
+							<Stack>
+								<Button size={`sm`} compact radius={`sm`}>Как настроить</Button>
+								<Button size={`sm`} compact radius={`sm`}>Мне нужна помощь</Button>
+							</Stack>
 						</Group>
 					</Stack>
 				</Center>
