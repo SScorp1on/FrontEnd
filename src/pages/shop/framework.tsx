@@ -44,7 +44,7 @@ const img = [
 
 const slides = img.map((image, index) => (
 	<Carousel.Slide key={index}>
-		<Image src={image.image} width={550} height={400} radius={9} fit={`cover`}/>
+		<Image src={image.image} width={700} height={550} radius={9} fit={`cover`}/>
 	</Carousel.Slide>
 ));
 
@@ -56,13 +56,6 @@ const cableTypesGet = (cableType: `typeC` | `microUSB`, wireless?: boolean) => {
 	];
 	if (wireless) arr.push({value: `wireless`, label: `Беспроводная`});
 	return arr;
-};
-
-const keycapTextCard = (keycapText: string) => {
-	let r = [`J`, `О`];
-	if (keycapText === `lat`) r = [`J`];
-	if (keycapText === `off`) r = [``];
-	return r;
 };
 
 export default function FrameworkPage() {
@@ -187,11 +180,11 @@ export default function FrameworkPage() {
 			>
 				<Center>
 					<Stack align={`center`}>
-						<Group position={`center`} spacing={`xl`}>
+						<Group position={`center`} spacing={`xl`} style={{marginRight: `15px`}}>
 							<Card
 								style={{
-									width: `550px`,
-									height: `400px`
+									width: `700px`,
+									height: `550px`
 								}}
 							>
 								<Carousel
@@ -392,18 +385,19 @@ export default function FrameworkPage() {
 								maxWidth: `1150px`
 							}}
 						/>
-						<Group spacing={`xl`}>
-							<Stack align={`center`} spacing={`md`}>
+						<Group spacing={100}>
+							<Stack align={`center`} spacing={`xs`}>
 								<Text size={18} weight={600}>Характеристики</Text>
-								<Stack spacing={`xs`}>
+								<Stack spacing={1}>
 									<Text size={14} color={`dimmed`}>Количество клавиш: 59</Text>
 									<Text size={14} color={`dimmed`}>Количество энкодеров: 1</Text>
 									<Text size={14} color={`dimmed`}>Разъем: Type-C</Text>
 								</Stack>
 							</Stack>
-							<Stack>
-								<Button size={`sm`} compact radius={`sm`}>Как настроить</Button>
-								<Button size={`sm`} compact radius={`sm`}>Мне нужна помощь</Button>
+							<Stack spacing={10}>
+								<Button size={`sm`} variant={`outline`} compact radius={`sm`}>Как настроить</Button>
+								<Button size={`sm`} variant={`outline`} compact radius={`sm`}>Гарантии</Button>
+								<Button size={`sm`} variant={`outline`} compact radius={`sm`}>Мне нужна помощь</Button>
 							</Stack>
 						</Group>
 					</Stack>
