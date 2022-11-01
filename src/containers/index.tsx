@@ -17,7 +17,7 @@ export default function DefaultContainer({children}: { children?: React.ReactEle
 						Button: {
 							defaultProps: {
 								color: `dark`,
-								radius: theme.radius.md,
+								radius: theme.radius.sm,
 							},
 						},
 					}

@@ -25,7 +25,6 @@ jobs:
                       cd ${{ secrets.FOLDER }}
                       > .env
                       echo DOCKER_PORT=${{ secrets.DOCKER_PORT }} >> .env
-                      echo DOCKER_STATE=prod >> .env
+                      docker-compose down
                       git pull
-                      yarn install
-                      yarn build
+                      docker-compose up -d
