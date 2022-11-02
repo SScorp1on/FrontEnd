@@ -1,20 +1,10 @@
 import {KeyboardCard} from "../Cards/keyboardCard";
-import React, {useState} from "react";
-import BuyModal from "./buyModal";
+import React from "react";
 
 export default function BuyLily() {
 
-	const [buyKeyboard, setBuyKeyboard] = useState(false);
-
 	return (
 		<>
-			<BuyModal
-				buyKeyboard={buyKeyboard}
-				setBuyKeyboard={setBuyKeyboard}
-				wireless={true}
-				name={`Lily58`}
-				cableKeyboardType={`microUSB`}
-			/>
 			<KeyboardCard
 				title={`Lily58`}
 				currentPrice={10990}
@@ -24,7 +14,6 @@ export default function BuyLily() {
 					{image: `https://user-images.githubusercontent.com/6285554/53640050-6203dc00-3c6e-11e9-9434-5591ed3e414f.jpg`},
 				]}
 				description={`Компактная сплит клавиатура с 56 клавишами и дизайном, помещаяющимся на двух коленках`}
-				setModuleState={setBuyKeyboard}
 			/>
 		</>
 	);

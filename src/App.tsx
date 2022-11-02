@@ -8,9 +8,9 @@ import {Page404} from "./pages/404";
 import Login from './pages/login';
 import {ForgotPassword} from './pages/passwordForgot';
 import ShopPage from "./pages/shop";
-import Admin from "./pages/admin";
 import WaitingPage from "./pages/shop/waiting";
 import FrameworkPage from "./pages/shop/framework";
+import SoflePage from "./pages/shop/sofle";
 
 function App() {
 	return (
@@ -73,10 +73,10 @@ function App() {
 					}
 				/>
 				<Route
-					path={`/admin`}
+					path='/shop/sofle'
 					element={
 						<DefaultContainer>
-							<Admin/>
+							<SoflePage/>
 						</DefaultContainer>
 					}
 				/>

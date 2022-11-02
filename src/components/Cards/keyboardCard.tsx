@@ -11,12 +11,14 @@ import {
 	Indicator,
 	ActionIcon,
 	Stack,
-	useMantineTheme
+	useMantineTheme,
+	Button
 } from '@mantine/core';
 import {Carousel} from '@mantine/carousel';
 import {IconHeart, IconShoppingCart, IconStar} from "@tabler/icons";
 import React from "react";
 import {useTheme} from "@emotion/react";
+import {useNavigate} from "react-router-dom";
 
 const formatter = new Intl.NumberFormat(`ru-RU`, {
 	style: `currency`,
@@ -62,7 +64,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 		paddingBottom: theme.spacing.md,
 	},
 	shop: {
-		color: theme.colors.dark[6],
+		color: theme.colors.white,
 	},
 	carouselIndicator: {
 		width: 4,
@@ -73,37 +75,47 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 			width: 16,
 		},
 	},
+	name: {
+		position: `absolute`,
+		top: `210px`,
+		left: `20px`,
+		color: `red`
+	}
 }));
 
 interface IImage {
 	image: string;
 }
 
-interface KeyboardCardProps {
+interface IProps {
 	title: string;
 	currentPrice: number;
 	oldPrice: number;
 	images: IImage[];
 	description: string;
-	setModuleState: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const KeyboardCard = ({title, currentPrice, oldPrice, description, images, setModuleState}: KeyboardCardProps) => {
+export const KeyboardCard = ({title, currentPrice, oldPrice, description, images}: IProps) => {
 	const {classes} = useStyles();
-	const theme = useMantineTheme();
+
+	const navigate = useNavigate();
 
 	const sale = Math.round((oldPrice - currentPrice) / oldPrice * 100);
 	const slides = images.map((image, index) => (
 		<Carousel.Slide key={index}>
-			<Image src={image.image} width={300} height={150} radius={9} fit={`cover`}/>
+			<Image src={image.image} width={400} height={250} radius={9} fit={`cover`}/>
 		</Carousel.Slide>
 	));
+
+	const toKeyboardPage = () => {
+		navigate(`/shop/${title}`);
+	};
 
 	return (
 		<Card
 			radius="md"
 			style={{
-				width: 300,
+				width: 400,
 			}}
 			p="xl"
 			shadow={`md`}
@@ -125,13 +137,6 @@ export const KeyboardCard = ({title, currentPrice, oldPrice, description, images
 					Скидка {sale}%
 				</Badge> : <></>}
 			</Card.Section>
-			<Card.Section className={classes.section}>
-				<Group position="apart" mt="lg">
-					<Text weight={500} size="lg">
-						{title}
-					</Text>
-				</Group>
-			</Card.Section>
 			<Text sx={{marginLeft: `-8px`}} size="sm" color="dimmed" mt="sm">
 				{description}
 			</Text>
@@ -146,17 +151,13 @@ export const KeyboardCard = ({title, currentPrice, oldPrice, description, images
 						</Text> : <></>}
 					</div>
 					<Group>
-						<ActionIcon
-							variant="default"
-							radius="md"
-							size={36}
-							onClick={() => setModuleState(true)}
-							style={{
-								borderColor: theme.colors.dark[7]
-							}}
+						<Button
+							variant={`outline`}
+							leftIcon={<IconShoppingCart size={18} className={classes.shop} stroke={1.5} />}
+							onClick={toKeyboardPage}
 						>
-							<IconShoppingCart size={18} className={classes.shop} stroke={1.5} />
-						</ActionIcon>
+							 Открыть
+						</Button>
 					</Group>
 				</Group>
 			</Card.Section>

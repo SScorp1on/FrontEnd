@@ -13,24 +13,31 @@ import {
 	useMantineTheme,
 	Image,
 	Divider,
-	UnstyledButton,
-	Space, createStyles, StackProps,
+	Space,
+	createStyles,
 } from "@mantine/core";
-import {At, Ce, DiscountCheck, Keyboard, Login, MessageCircle, Truck, X} from "tabler-icons-react";
-import User from "../../components/user";
+import {DiscountCheck, Truck, X} from "tabler-icons-react";
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {createBackendContext, updateTokens} from "../../context/axios.context";
 import {showNotification} from "@mantine/notifications";
 import {Carousel} from "@mantine/carousel";
+import HeaderComponent from "./headerComponent";
+import FooterComponent from "./footerComponent";
 
-interface PropInterface {
+interface IProps {
 	keyboardName: string;
 	price: number;
-	description: JSX.Element
+	description: JSX.Element;
+	img: {image: string}[];
+	split?: boolean;
+	keyAmount: number,
+	encoderAmount: number;
+	connector: string;
+	wireless: boolean;
 }
 
-interface UserInterface {
+interface IUser {
 	username: string;
 	email: string;
 	avatar: string;
@@ -54,31 +61,24 @@ const formatter = new Intl.NumberFormat(`ru-RU`, {
 	maximumFractionDigits: 0,
 });
 
-const img = [
-	{image: `https://github.com/stevennguyen/framework/blob/master/images/1.jpg?raw=true`},
-	{image: `https://github.com/stevennguyen/framework/blob/master/images/2.jpg?raw=true`},
-	{image: `https://github.com/stevennguyen/framework/blob/master/images/3.jpg?raw=true`},
-	{image: `https://github.com/stevennguyen/framework/blob/master/images/4.jpg?raw=true`},
-];
-
-const slides = img.map((image, index) => (
-	<Carousel.Slide key={index}>
-		<Image src={image.image} width={600} height={450} radius={9} fit={`cover`}/>
-	</Carousel.Slide>
-));
-
-export default function KeyboardPage(props: PropInterface) {
+export default function KeyboardPage(props: IProps) {
 	useDocumentTitle(props.keyboardName);
 
 	const navigate = useNavigate();
 	const theme = useMantineTheme();
 	const {classes} = useStyles();
 
-	const [user, setUser] = useState<null | UserInterface>(null);
+	const [user, setUser] = useState<null | IUser>(null);
 	const [userLoading, setUserLoading] = useState(false);
 
 	const [keycapColor, setKeycapColor] = useState(``);
 	const [keycapText, setKeycapText] = useState(``);
+
+	const slides = props.img.map((image, index) => (
+		<Carousel.Slide key={index}>
+			<Image src={image.image} width={600} height={450} radius={9} fit={`cover`}/>
+		</Carousel.Slide>
+	));
 
 	const onButtonClick = () => {
 		showNotification({
@@ -99,7 +99,7 @@ export default function KeyboardPage(props: PropInterface) {
 		const userCtx = createBackendContext();
 		return await userCtx.get(`user`)
 			.then(r => {
-				const u: UserInterface = r.data;
+				const u: IUser = r.data;
 				setUser(u);
 				setUserLoading(false);
 				return true;
@@ -130,66 +130,12 @@ export default function KeyboardPage(props: PropInterface) {
 				asideOffsetBreakpoint="sm"
 				header={
 					<Header height={70}>
-						<Center>
-							<Group position={`apart`} style={{width: `870px`}}>
-								<Group>
-									<Stack
-										style={{marginLeft: `15px`}}
-									>
-										<Text color={`red`} weight={700} size={28}>
-											JOURLOY
-										</Text>
-										<Text color={`dimmed`} style={{marginLeft: `4px`, marginTop: `-25px`}}>
-											Удобно и точка
-										</Text>
-									</Stack>
-									<Divider orientation={`vertical`} style={{marginTop: 10, height: `50px`}} />
-									<UnstyledButton
-										className={classes.home}
-									>
-										Клавиатуры
-									</UnstyledButton>
-								</Group>
-
-								<Group style={{marginRight: `5px`, marginBottom: `5px`}} position={`right`}>
-									{user ? (
-										<>
-											<User
-												username={user.username}
-												email={user.email}
-												avatar={user.avatar}
-												setUserLoading={setUserLoading}
-											/>
-										</>
-									) : (
-										<>
-											<Button
-												onClick={toLogin}
-												leftIcon={<Login strokeWidth={1}/>}
-												variant="outline"
-												radius="md"
-												size="sm"
-												uppercase
-												loading={userLoading}
-												sx={{marginTop: `15px`, marginRight: `15px`}}
-											>
-												Войти
-											</Button>
-										</>
-									)}
-								</Group>
-							</Group>
-						</Center>
+						<HeaderComponent user={user} userLoading={userLoading} setUserLoading={setUserLoading}/>
 					</Header>
 				}
 				footer={
 					<Footer height={60}>
-						<Group sx={{marginTop: 13, marginLeft: 13}} position={`center`} align={`center`}>
-							<Button variant={`outline`}>Доставка</Button>
-							<Button variant={`outline`}>Контакты</Button>
-							<Button variant={`outline`}>Вакансии</Button>
-							<Button variant={`outline`}>Возврат</Button>
-						</Group>
+						<FooterComponent />
 					</Footer>
 				}
 			>
@@ -337,17 +283,21 @@ export default function KeyboardPage(props: PropInterface) {
 							<Stack align={`center`} spacing={`xs`}>
 								<Text size={18} weight={600}>Характеристики</Text>
 								<Stack spacing={1}>
-									<Text size={14} color={`dimmed`}>Количество клавиш: 59</Text>
-									<Text size={14} color={`dimmed`}>Количество энкодеров: 1</Text>
-									<Text size={14} color={`dimmed`}>Разъем: Type-C</Text>
-									<Text size={14} color={`dimmed`}>Беспроводной режим: Нет</Text>
+									<Text size={14} color={`dimmed`}>Количество клавиш: {props.keyAmount}</Text>
+									<Text size={14} color={`dimmed`}>Количество энкодеров: {props.encoderAmount}</Text>
+									<Text size={14} color={`dimmed`}>Разъем: {props.connector}</Text>
+									<Text size={14} color={`dimmed`}>Беспроводной режим: {props.wireless ? `Да` : `Нет`}</Text>
 								</Stack>
 							</Stack>
 							<Stack align={`center`} spacing={`xs`}>
 								<Text size={18} weight={600}>В наборе</Text>
 								<Stack spacing={1}>
 									<Text size={14} color={`dimmed`}>Клавиатура</Text>
-									<Text size={14} color={`dimmed`}>Провод Type-C - USB</Text>
+									<Text size={14} color={`dimmed`}>
+										{props.split ? `Провода: ` : `Провод: `}
+										Type-C - USB
+										{props.split ? `, TRRS провод` : ``}
+									</Text>
 									<Text size={14} color={`dimmed`}>Подарочные свитчи и клавиши</Text>
 									<Text size={14} color={`dimmed`}>Скидка на следующую клавиатуру</Text>
 								</Stack>
