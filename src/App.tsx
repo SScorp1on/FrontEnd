@@ -11,6 +11,9 @@ import ShopPage from "./pages/shop";
 import WaitingPage from "./pages/shop/waiting";
 import FrameworkPage from "./pages/shop/framework";
 import SoflePage from "./pages/shop/sofle";
+import LilyPage from "./pages/shop/lily58";
+import HelixPage from "./pages/shop/helix";
+import ErgodashPage from "./pages/shop/ergodash";
 
 function App() {
 	return (
@@ -77,6 +80,30 @@ function App() {
 					element={
 						<DefaultContainer>
 							<SoflePage/>
+						</DefaultContainer>
+					}
+				/>
+				<Route
+					path='/shop/lily58'
+					element={
+						<DefaultContainer>
+							<LilyPage/>
+						</DefaultContainer>
+					}
+				/>
+				<Route
+					path='/shop/helix'
+					element={
+						<DefaultContainer>
+							<HelixPage/>
+						</DefaultContainer>
+					}
+				/>
+				<Route
+					path='/shop/ergodash'
+					element={
+						<DefaultContainer>
+							<ErgodashPage/>
 						</DefaultContainer>
 					}
 				/>

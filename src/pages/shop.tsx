@@ -90,11 +90,11 @@ export default function ShopPage() {
 				centered
 			>
 				<Stack align={`center`}>
-					<Text color={`red`} weight={700} sx={{fontSize: 20}}>
-						Не нашел подходящей клавиатуры?
+					<Text color={`dark`} weight={700} sx={{fontSize: 20}}>
+						Нет подходящей клавиатуры?
 					</Text>
 					<Textarea
-						placeholder={`Распиши свою идею или возможно ты уже видел где-то такую клавиатуру. Можешь 
+						placeholder={`Распиши свою идею. Можешь 
 						вставить ссылку на любой источник (Github, Reddit и так далее)`}
 						autosize
 						radius={`md`}
@@ -122,7 +122,6 @@ export default function ShopPage() {
 					/>
 					<Button
 						fullWidth
-						color={`red`}
 						style={{width: `90%`}}
 					>
 						Отправить
