@@ -133,11 +133,6 @@ export default function KeyboardPage(props: IProps) {
 						<HeaderComponent user={user} userLoading={userLoading} setUserLoading={setUserLoading}/>
 					</Header>
 				}
-				footer={
-					<Footer height={60}>
-						<FooterComponent />
-					</Footer>
-				}
 			>
 				<Center>
 					<Stack align={`center`}>
@@ -164,7 +159,7 @@ export default function KeyboardPage(props: IProps) {
 								<Stack>
 									<Select
 										label={`Выбери маркировку на клавишах`}
-										defaultValue={`cyr`}
+										defaultValue={`off`}
 										onChange={(e) => setKeycapText(e || `off`)}
 										styles={(theme) => ({
 											input: {
@@ -183,8 +178,8 @@ export default function KeyboardPage(props: IProps) {
 										})}
 										data={[
 											{value: `off`, label: `Без маркировки`},
-											{value: `lat`, label: `Только английские`},
-											{value: `cyr`, label: `Английские и русские`},
+											{value: `lat`, label: `Только английские`, disabled: true},
+											{value: `cyr`, label: `Английские и русские`, disabled: true},
 										]}
 									/>
 									<Select
@@ -207,39 +202,36 @@ export default function KeyboardPage(props: IProps) {
 											},
 										})}
 										data={[
-											{value: `red`, label: `Красные`},
-											{value: `yellow`, label: `Желтые`},
-											{value: `green`, label: `Зеленые`},
-											{value: `blue`, label: `Синие`},
-											{value: `purple`, label: `Фиолетовые`},
 											{value: `white`, label: `Белые`},
-											{value: `black`, label: `Черные`},
+											{value: `black`, label: `Черные`, disabled: true},
 										]}
 									/>
 								</Stack>
 								<Stack align={`center`}>
 									<Group position={`left`}>
-										<Truck strokeWidth={1} style={{marginTop: `-40px`, marginLeft: `-85px`}}/>
-										<Stack spacing={3} style={{marginLeft: `-10px`}}>
-											<Text>
-												Доставка:
-											</Text>
-											<Stack spacing={1}>
-												<Text size={12}>От 30 дней</Text>
-												<Text size={12}>Бесплатно</Text>
+										<Group>
+											<Truck strokeWidth={1} style={{marginTop: `-40px`, marginLeft: `-10px`}}/>
+											<Stack spacing={3} style={{marginLeft: `-10px`}}>
+												<Text>
+													Доставка:
+												</Text>
+												<Stack spacing={1}>
+													<Text size={12}>От 30 дней</Text>
+													<Text size={12}>Бесплатно</Text>
+												</Stack>
 											</Stack>
-										</Stack>
-									</Group>
-									<Group position={`left`}>
-										<DiscountCheck strokeWidth={1} style={{marginTop: `-20px`, marginLeft: `-85px`}}/>
-										<Stack spacing={3} style={{marginLeft: `-10px`}}>
-											<Text>
-												Гарантия:
-											</Text>
-											<Stack spacing={1}>
-												<Text size={12}>1 год</Text>
+										</Group>
+										<Group position={`left`}>
+											<DiscountCheck strokeWidth={1} style={{marginTop: `-40px`}}/>
+											<Stack spacing={3} style={{marginLeft: `-10px`, marginTop: `-20px`}}>
+												<Text>
+													Гарантия:
+												</Text>
+												<Stack spacing={1}>
+													<Text size={12}>1 год</Text>
+												</Stack>
 											</Stack>
-										</Stack>
+										</Group>
 									</Group>
 									<Button
 										fullWidth
@@ -296,15 +288,16 @@ export default function KeyboardPage(props: IProps) {
 									<Text size={14} color={`dimmed`}>
 										{props.split ? `Провода: ` : `Провод: `}
 										Type-C - USB
-										{props.split ? `, TRRS провод` : ``}
+										{props.split ? `, TRRS` : ``}
 									</Text>
-									<Text size={14} color={`dimmed`}>Подарочные свитчи и клавиши</Text>
+									<Text size={14} color={`dimmed`}>Подарок</Text>
 									<Text size={14} color={`dimmed`}>Скидка на следующую клавиатуру</Text>
 								</Stack>
 							</Stack>
 						</Group>
 					</Stack>
 				</Center>
+				<FooterComponent />
 			</AppShell>
 		</>
 	);

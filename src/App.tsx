@@ -8,12 +8,12 @@ import {Page404} from "./pages/404";
 import Login from './pages/login';
 import {ForgotPassword} from './pages/passwordForgot';
 import ShopPage from "./pages/shop";
-import WaitingPage from "./pages/shop/waiting";
 import FrameworkPage from "./pages/shop/framework";
 import SoflePage from "./pages/shop/sofle";
 import LilyPage from "./pages/shop/lily58";
 import HelixPage from "./pages/shop/helix";
 import ErgodashPage from "./pages/shop/ergodash";
+import DeliveryPage from "./pages/shop/delivery";
 
 function App() {
 	return (
@@ -60,10 +60,10 @@ function App() {
 					}
 				/>
 				<Route
-					path='/shop/waiting'
+					path='/shop/delivery'
 					element={
 						<DefaultContainer>
-							<WaitingPage/>
+							<DeliveryPage/>
 						</DefaultContainer>
 					}
 				/>

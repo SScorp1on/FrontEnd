@@ -6,8 +6,8 @@ export default function BuyErgodash() {
 		<>
 			<KeyboardCard
 				title={`ErgoDash`}
-				currentPrice={10990}
-				oldPrice={15990}
+				currentPrice={9999}
+				oldPrice={17990}
 				images={[
 					{image: `https://github.com/omkbd/picture/blob/master/Ergodash.jpg?raw=true`},
 					{image: `https://github.com/omkbd/picture/blob/master/finish.jpg?raw=true`},

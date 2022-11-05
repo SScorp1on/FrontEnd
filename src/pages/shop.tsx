@@ -10,7 +10,8 @@ import {
 	Textarea,
 	Stack,
 	Input,
-	createStyles
+	createStyles,
+	Card, useMantineTheme
 } from "@mantine/core";
 import {useNavigate} from "react-router-dom";
 import {At, Login, X} from "tabler-icons-react";
@@ -46,6 +47,7 @@ export default function ShopPage() {
 	useDocumentTitle(`Магазин`);
 
 	const navigate = useNavigate();
+	const theme = useMantineTheme();
 
 	const [user, setUser] = useState<null | UserInterface>(null);
 	const [userLoading, setUserLoading] = useState(false);
@@ -144,7 +146,62 @@ export default function ShopPage() {
 				}
 			>
 				<Stack align={`center`}>
-					<Group position="center" align={`top`} spacing={40} style={{maxWidth: `840px`}}>
+					<Card
+						style={{
+							width: `105%`,
+							height: `250px`,
+							marginTop: `20px`,
+							marginLeft: `-32px`,
+							backgroundColor: theme.colors.gray[0]
+						}}
+						radius={0}
+					>
+						<Group>
+							<Stack
+								align={`center`}
+								style={{
+									marginLeft: `220px`,
+									marginTop: `60px`,
+								}}
+							>
+								<Text size={25} tt={`uppercase`}>
+									К каждой клавиатуре
+								</Text>
+								<Text
+									weight={700}
+									size={40}
+									color={`red`}
+									tt={`uppercase`}
+									style={{
+										marginTop: `-20px`
+									}}
+								>
+									Подарок
+								</Text>
+							</Stack>
+							<Card
+								withBorder
+								style={{
+									position: `absolute`,
+									width: `650px`,
+									height: `220px`,
+									marginLeft: `600px`,
+									marginTop: `30px`,
+								}}
+							>
+
+							</Card>
+						</Group>
+					</Card>
+					<Group
+						position="center"
+						align={`top`}
+						spacing={40}
+						style={{
+							maxWidth: `840px`,
+							marginTop: `20px`
+						}}
+					>
 						<BuyFramework/>
 						<BuySofle/>
 						<BuyLily/>

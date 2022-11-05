@@ -8,7 +8,7 @@ const description = () => (
 	<Stack style={{maxWidth: `840px`}}>
 		<Text>
 			<Text weight={700} color={`red`} span>{keyboardName}</Text> - сплит клавиатура.
-			Она имеет 68 клавиши. Данное количетсво клавиш идеально подходит для работы, учебы и игры.
+			Она имеет 68 клавиши. Данное количество клавиш идеально подходит для работы, учебы и игры.
 		</Text>
 		<Space h={`sm`}/>
 		<Text>
@@ -49,7 +49,7 @@ export default function ErgodashPage() {
 	return (
 		<KeyboardPage
 			keyboardName={keyboardName}
-			price={10990}
+			price={9999}
 			description={description()}
 			img={img}
 			split={true}

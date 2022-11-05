@@ -7,8 +7,8 @@ export default function BuySofle() {
 		<>
 			<KeyboardCard
 				title={`Sofle`}
-				currentPrice={10990}
-				oldPrice={15990}
+				currentPrice={9999}
+				oldPrice={16990}
 				images={[
 					{image: `https://github.com/josefadamcik/SofleKeyboard/raw/master/docs/images/sofle_keyboard.jpg`},
 					{image: `https://github.com/josefadamcik/SofleKeyboard/raw/master/Images/IMG_20191110_131443.jpg`},

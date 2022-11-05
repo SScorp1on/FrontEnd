@@ -8,7 +8,7 @@ const description = () => (
 	<Stack style={{maxWidth: `840px`}}>
 		<Text>
 			<Text weight={700} color={`red`} span>{keyboardName}</Text> - сплит клавиатура.
-			Она имеет 56 клавиш. Это не сильно меньше обычной клавиатуры, а значит данное количество клавиш отлично
+			Она имеет 58 клавиш. Это не сильно меньше обычной клавиатуры, а значит данное количество клавиш отлично
 			подойдет как для работы или учебы, так и для игры.
 		</Text>
 		<Space h={`sm`}/>
@@ -51,7 +51,7 @@ export default function LilyPage() {
 	return (
 		<KeyboardPage
 			keyboardName={keyboardName}
-			price={10990}
+			price={9999}
 			description={description()}
 			img={img}
 			split={true}

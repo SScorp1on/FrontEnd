@@ -49,7 +49,7 @@ export default function SoflePage() {
 	return (
 		<KeyboardPage
 			keyboardName={`Sofle`}
-			price={10990}
+			price={9999}
 			description={description()}
 			img={img}
 			split={true}
