@@ -1,20 +1,10 @@
 import {KeyboardCard} from "../Cards/keyboardCard";
-import React, {useState} from "react";
-import BuyModal from "./buyModal";
+import React from "react";
 
 export default function BuySofle() {
 
-	const [buyKeyboard, setBuyKeyboard] = useState(false);
-
 	return (
 		<>
-			<BuyModal
-				buyKeyboard={buyKeyboard}
-				setBuyKeyboard={setBuyKeyboard}
-				wireless={true}
-				name={`Sofle`}
-				cableKeyboardType={`microUSB`}
-			/>
 			<KeyboardCard
 				title={`Sofle`}
 				currentPrice={10990}
@@ -25,7 +15,6 @@ export default function BuySofle() {
 					{image: `https://github.com/josefadamcik/SofleKeyboard/blob/master/Images/IMG_20200126_114622.jpg?raw=true`},
 				]}
 				description={`Одна из самых популяпрных сплит клавиатур с 58 клавишами и двумя энкодерами`}
-				setModuleState={setBuyKeyboard}
 			/>
 		</>
 	);

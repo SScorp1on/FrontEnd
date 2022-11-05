@@ -57,7 +57,7 @@ export function Page404() {
 	const navigate = useNavigate();
 
 	const onButton = () => {
-		navigate(`/`);
+		navigate(`/shop`);
 	};
 
 	return (

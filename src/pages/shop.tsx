@@ -5,15 +5,14 @@ import {
 	Group,
 	Header,
 	Footer,
-	Center,
 	Text,
 	Modal,
 	Textarea,
 	Stack,
-	Input
+	Input,
+	createStyles
 } from "@mantine/core";
 import {useNavigate} from "react-router-dom";
-import User from "../components/user";
 import {At, Login, X} from "tabler-icons-react";
 import {createBackendContext, updateTokens} from "../context/axios.context";
 import BuyFramework from "../components/shop/buyFramework";
@@ -22,12 +21,26 @@ import BuySofle from "../components/shop/buySofle";
 import BuyLily from "../components/shop/buyLily";
 import BuyHelix from "../components/shop/buyHelix";
 import BuyErgodash from "../components/shop/buyErgodash";
+import HeaderComponent from "../components/shop/headerComponent";
+import FooterComponent from "../components/shop/footerComponent";
 
 interface UserInterface {
 	username: string;
 	email: string;
 	avatar: string;
 }
+
+const useStyles = createStyles((theme, _params, getRef) => ({
+	home: {
+		marginTop: `10px`,
+		color: `black`,
+		fontWeight: 300,
+		fontSize: 15,
+		":hover": {
+			color: `red`
+		},
+	}
+}));
 
 export default function ShopPage() {
 	useDocumentTitle(`Магазин`);
@@ -38,10 +51,6 @@ export default function ShopPage() {
 	const [userLoading, setUserLoading] = useState(false);
 
 	const [modalState, setModalState] = useState(false);
-
-	const toLogin = () => {
-		navigate(`/login`);
-	};
 
 	const updateUser = async () => {
 		setUserLoading(true);
@@ -81,11 +90,11 @@ export default function ShopPage() {
 				centered
 			>
 				<Stack align={`center`}>
-					<Text color={`red`} weight={700} sx={{fontSize: 20}}>
-						Не нашел подходящей клавиатуры?
+					<Text color={`dark`} weight={700} sx={{fontSize: 20}}>
+						Нет подходящей клавиатуры?
 					</Text>
 					<Textarea
-						placeholder={`Распиши свою идею или возможно ты уже видел где-то такую клавиатуру. Можешь 
+						placeholder={`Распиши свою идею. Можешь 
 						вставить ссылку на любой источник (Github, Reddit и так далее)`}
 						autosize
 						radius={`md`}
@@ -113,7 +122,6 @@ export default function ShopPage() {
 					/>
 					<Button
 						fullWidth
-						color={`red`}
 						style={{width: `90%`}}
 					>
 						Отправить
@@ -126,73 +134,31 @@ export default function ShopPage() {
 				asideOffsetBreakpoint="sm"
 				header={
 					<Header height={70}>
-						<Group position={`apart`}>
-							<Stack
-								style={{marginLeft: `15px`}}
-							>
-								<Text color={`red`} weight={700} size={28}>
-									JOURLOY
-								</Text>
-								<Text color={`dimmed`} style={{marginLeft: `4px`, marginTop: `-25px`}}>
-									Удобно и точка
-								</Text>
-							</Stack>
-							<Group style={{marginRight: `5px`, marginBottom: `5px`}} position={`right`}>
-								{user ? (
-									<>
-										<User
-											username={user.username}
-											email={user.email}
-											avatar={user.avatar}
-											setUserLoading={setUserLoading}
-										/>
-									</>
-								) : (
-									<>
-										<Button
-											onClick={toLogin}
-											leftIcon={<Login/>}
-											variant="outline"
-											radius="md"
-											size="sm"
-											uppercase
-											loading={userLoading}
-											sx={{marginTop: `15px`, marginRight: `15px`}}
-										>
-											Войти
-										</Button>
-									</>
-								)}
-							</Group>
-						</Group>
+						<HeaderComponent user={user} userLoading={userLoading} setUserLoading={setUserLoading}/>
 					</Header>
 				}
 				footer={
 					<Footer height={60}>
-						<Group sx={{marginTop: 13, marginLeft: 13}} position={`center`} align={`center`}>
-							<Button variant={`outline`}>Доставка</Button>
-							<Button variant={`outline`}>Контакты</Button>
-							<Button variant={`outline`}>Вакансии</Button>
-							<Button variant={`outline`}>Возврат</Button>
-						</Group>
+						<FooterComponent />
 					</Footer>
 				}
 			>
-				<Group position="center" align={`top`} spacing={`xl`}>
-					<BuyFramework/>
-					<BuySofle/>
-					<BuyLily/>
-					<BuyHelix/>
-					<BuyErgodash/>
-				</Group>
-				<Center>
+				<Stack align={`center`}>
+					<Group position="center" align={`top`} spacing={40} style={{maxWidth: `840px`}}>
+						<BuyFramework/>
+						<BuySofle/>
+						<BuyLily/>
+						<BuyHelix/>
+						<BuyErgodash/>
+					</Group>
 					<Button
+						variant={`outline`}
 						onClick={() => setModalState(true)}
-						style={{marginTop: `35px`}}
+						style={{marginTop: `35px`, maxWidth: `300px`}}
 					>
-						Не нашли что искали?
+							Нет подходящей клавиатуры?
 					</Button>
-				</Center>
+				</Stack>
 			</AppShell>
 		</>
 	);
