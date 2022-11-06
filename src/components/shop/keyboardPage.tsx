@@ -133,6 +133,11 @@ export default function KeyboardPage(props: IProps) {
 						<HeaderComponent user={user} userLoading={userLoading} setUserLoading={setUserLoading}/>
 					</Header>
 				}
+				footer={
+					<Footer height={60}>
+						<FooterComponent />
+					</Footer>
+				}
 			>
 				<Center>
 					<Stack align={`center`}>
@@ -297,7 +302,6 @@ export default function KeyboardPage(props: IProps) {
 						</Group>
 					</Stack>
 				</Center>
-				<FooterComponent />
 			</AppShell>
 		</>
 	);

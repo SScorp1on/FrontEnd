@@ -160,7 +160,7 @@ export default function ShopPage() {
 							<Stack
 								align={`center`}
 								style={{
-									marginLeft: `220px`,
+									marginLeft: `200px`,
 									marginTop: `60px`,
 								}}
 							>

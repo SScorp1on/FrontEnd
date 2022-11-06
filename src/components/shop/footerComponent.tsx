@@ -19,10 +19,9 @@ export default function FooterComponent() {
 					align={`center`}
 					spacing={`xs`}
 				>
-					<Button style={{width: width}} onClick={toDelivery}>Доставка</Button>
 					<Button style={{width: width}}>Контакты</Button>
+					<Button style={{width: width}} onClick={toDelivery}>Доставка</Button>
 					<Button style={{width: width}}>Вакансии</Button>
-					<Button style={{width: width}}>Возврат</Button>
 				</Group>
 			</Box>
 		</Center>
