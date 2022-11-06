@@ -146,53 +146,7 @@ export default function ShopPage() {
 				}
 			>
 				<Stack align={`center`}>
-					<Card
-						style={{
-							width: `105%`,
-							height: `250px`,
-							marginTop: `20px`,
-							marginLeft: `-32px`,
-							backgroundColor: theme.colors.gray[0]
-						}}
-						radius={0}
-					>
-						<Group>
-							<Stack
-								align={`center`}
-								style={{
-									marginLeft: `200px`,
-									marginTop: `60px`,
-								}}
-							>
-								<Text size={25} tt={`uppercase`}>
-									К каждой клавиатуре
-								</Text>
-								<Text
-									weight={700}
-									size={40}
-									color={`red`}
-									tt={`uppercase`}
-									style={{
-										marginTop: `-20px`
-									}}
-								>
-									Подарок
-								</Text>
-							</Stack>
-							<Card
-								withBorder
-								style={{
-									position: `absolute`,
-									width: `650px`,
-									height: `220px`,
-									marginLeft: `600px`,
-									marginTop: `30px`,
-								}}
-							>
-
-							</Card>
-						</Group>
-					</Card>
+					
 					<Group
 						position="center"
 						align={`top`}
