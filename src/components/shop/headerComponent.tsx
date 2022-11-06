@@ -78,7 +78,6 @@ export default function HeaderComponent({user, userLoading, setUserLoading}: IPr
 						<>
 							<Button
 								onClick={toLogin}
-								leftIcon={<Login strokeWidth={1}/>}
 								radius={`md`}
 								size={`sm`}
 								uppercase

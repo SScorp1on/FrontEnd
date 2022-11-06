@@ -10,7 +10,8 @@ import {
 	Textarea,
 	Stack,
 	Input,
-	createStyles
+	createStyles,
+	Card, useMantineTheme
 } from "@mantine/core";
 import {useNavigate} from "react-router-dom";
 import {At, Login, X} from "tabler-icons-react";
@@ -46,6 +47,7 @@ export default function ShopPage() {
 	useDocumentTitle(`Магазин`);
 
 	const navigate = useNavigate();
+	const theme = useMantineTheme();
 
 	const [user, setUser] = useState<null | UserInterface>(null);
 	const [userLoading, setUserLoading] = useState(false);
@@ -144,7 +146,16 @@ export default function ShopPage() {
 				}
 			>
 				<Stack align={`center`}>
-					<Group position="center" align={`top`} spacing={40} style={{maxWidth: `840px`}}>
+					
+					<Group
+						position="center"
+						align={`top`}
+						spacing={40}
+						style={{
+							maxWidth: `840px`,
+							marginTop: `20px`
+						}}
+					>
 						<BuyFramework/>
 						<BuySofle/>
 						<BuyLily/>

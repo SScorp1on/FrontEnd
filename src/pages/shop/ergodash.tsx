@@ -8,7 +8,7 @@ const description = () => (
 	<Stack style={{maxWidth: `840px`}}>
 		<Text>
 			<Text weight={700} color={`red`} span>{keyboardName}</Text> - сплит клавиатура.
-			Она имеет 68 клавиши. Данное количетсво клавиш идеально подходит для работы, учебы и игры.
+			Она имеет 68 клавиши. Данное количество клавиш идеально подходит для работы, учебы и игры.
 		</Text>
 		<Space h={`sm`}/>
 		<Text>
@@ -19,8 +19,7 @@ const description = () => (
 		<Text>
 			Сплит клавиатура предназачена для удобного расположения на столе. Есть возможность поставить руки под удобным
 			углом и на любом расстоянии друг от друга за счет того, что две половинки соединяются TRRS кабелем
-			(похож на кабель от наушников). Подробнее прочитать про сплит клавиатуры можно
-			<Text component={`a`} variant={`link`} color={`red`}> здесь</Text>.
+			(похож на кабель от наушников).
 		</Text>
 		<Space h={`sm`}/>
 		<Text>
@@ -49,7 +48,7 @@ export default function ErgodashPage() {
 	return (
 		<KeyboardPage
 			keyboardName={keyboardName}
-			price={10990}
+			price={9999}
 			description={description()}
 			img={img}
 			split={true}

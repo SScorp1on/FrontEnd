@@ -6,7 +6,7 @@ const description = () => (
 	<Stack style={{maxWidth: `840px`}}>
 		<Text>
 			<Text weight={700} color={`red`} span>Framework</Text> - ортогональная клавиатура.
-			Она имеет 59 клавиш. Данное количетсво клавиш идеально подходит для учебы, работы и
+			Она имеет 59 клавиш. Данное количество клавиш идеально подходит для учебы, работы и
 			игры.
 		</Text>
 		<Space h={`sm`}/>
@@ -43,7 +43,7 @@ export default function FrameworkPage() {
 	return (
 		<KeyboardPage
 			keyboardName={`Framework`}
-			price={10990}
+			price={9999}
 			description={description()}
 			img={img}
 			encoderAmount={1}

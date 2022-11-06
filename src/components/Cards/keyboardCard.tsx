@@ -96,14 +96,15 @@ interface IProps {
 }
 
 export const KeyboardCard = ({title, currentPrice, oldPrice, description, images}: IProps) => {
-	const {classes} = useStyles();
 
+	const {classes} = useStyles();
 	const navigate = useNavigate();
+	const theme = useMantineTheme();
 
 	const sale = Math.round((oldPrice - currentPrice) / oldPrice * 100);
 	const slides = images.map((image, index) => (
 		<Carousel.Slide key={index}>
-			<Image src={image.image} width={400} height={250} radius={9} fit={`cover`}/>
+			<Image src={image.image} width={401} height={250} radius={9} fit={`cover`}/>
 		</Carousel.Slide>
 	));
 
@@ -116,10 +117,10 @@ export const KeyboardCard = ({title, currentPrice, oldPrice, description, images
 			radius="md"
 			style={{
 				width: 400,
+				backgroundColor: theme.colors.gray[0]
 			}}
 			p="xl"
 			shadow={`md`}
-			withBorder
 
 		>
 			<Card.Section>
@@ -137,7 +138,7 @@ export const KeyboardCard = ({title, currentPrice, oldPrice, description, images
 					Скидка {sale}%
 				</Badge> : <></>}
 			</Card.Section>
-			<Text sx={{marginLeft: `-8px`}} size="sm" color="dimmed" mt="sm">
+			<Text sx={{marginLeft: `-8px`}} size="sm" mt="sm">
 				{description}
 			</Text>
 			<Card.Section className={classes.section}>
