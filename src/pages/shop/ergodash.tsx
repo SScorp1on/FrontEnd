@@ -5,7 +5,12 @@ import {Space, Stack, Text} from "@mantine/core";
 const keyboardName = `Helix`;
 
 const description = () => (
-	<Stack style={{maxWidth: `840px`}}>
+	<Stack
+		style={{
+			maxWidth: `840px`,
+			width: `100%`,
+		}}
+	>
 		<Text>
 			<Text weight={700} color={`red`} span>{keyboardName}</Text> - сплит клавиатура.
 			Она имеет 68 клавиши. Данное количество клавиш идеально подходит для работы, учебы и игры.

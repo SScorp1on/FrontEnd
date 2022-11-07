@@ -4,10 +4,12 @@ import {
 	Center,
 	Stack,
 	Button,
-	useMantineTheme
+	useMantineTheme,
+	Group
 } from "@mantine/core";
 import {useDocumentTitle} from "@mantine/hooks";
 import {useNavigate} from "react-router-dom";
+import {useState} from "react";
 
 export default function Main() {
 	useDocumentTitle(`Jourloy`);
@@ -15,50 +17,65 @@ export default function Main() {
 	const theme = useMantineTheme();
 	const navigate = useNavigate();
 
+	const [rColor, setRColor] = useState(theme.colors.red[7]);
+
+	const onHoverKeyboardShop = () => {
+		setRColor(theme.colors.red[7]);
+	};
+
+	const onHoverCyberShop = () => {
+		setRColor(theme.colors.grape[7]);
+	};
+
 	const toShop = () => {
 		navigate(`/shop`);
 	};
 
 	return (
-		<Box>
-			<Center>
-				<Stack align={`center`} style={{width: `870px`}}>
-					<div style={{
-						position: `absolute`,
-						left: `50%`,
-						top: `50%`,
-						transform: `translate(-50%, -50%)`,
-						display: `flex`,
-						justifyContent: `space-between`,
-						alignItems: `center`,
-						width: `870px`
-					}}>
-						<Text style={{fontSize: `80pt`, marginLeft: `50px`}}>J</Text>
-						<Text style={{fontSize: `80pt`}}>O</Text>
-						<Text style={{fontSize: `80pt`}}>U</Text>
-						<Text style={{
-							fontSize: `85pt`,
-							transform: `rotate(180deg)`,
-							marginTop: `10px`,
-							color: theme.colors.red[7]
-						}}>R</Text>
-						<Text style={{fontSize: `80pt`}}>L</Text>
-						<Text style={{fontSize: `80pt`}}>O</Text>
-						<Text style={{fontSize: `80pt`, marginRight: `50px`}}>Y</Text>
-					</div>
+		<div style={{
+			position: `absolute`,
+			left: `50%`,
+			top: `50%`,
+			transform: `translate(-50%, -50%)`,
+			display: `flex`,
+			justifyContent: `space-between`,
+			alignItems: `center`,
+			width: `100%`
+		}}>
+			<Stack style={{width: `100%`}} align={`center`}>
+				<Group style={{maxWidth: `870px`, width: `100%`}} position={`apart`}>
+					<Text style={{fontSize: `80pt`}}>J</Text>
+					<Text style={{fontSize: `80pt`}}>O</Text>
+					<Text style={{fontSize: `80pt`}}>U</Text>
+					<Text style={{
+						fontSize: `85pt`,
+						transform: `rotate(180deg)`,
+						marginTop: `10px`,
+						color: rColor
+					}}>R</Text>
+					<Text style={{fontSize: `80pt`}}>L</Text>
+					<Text style={{fontSize: `80pt`}}>O</Text>
+					<Text style={{fontSize: `80pt`}}>Y</Text>
+				</Group>
+				<Group>
 					<Button
 						variant={`outline`}
 						color={`red`}
-						onClick={toShop}
-						style={{
-							marginTop: `90%`,
-							width: `200px`,
-						}}
+						w={`200px`}
+						onMouseOver={onHoverKeyboardShop}
 					>
-						Магазин
+						Keyboard shop
 					</Button>
-				</Stack>
-			</Center>
-		</Box>
+					<Button
+						variant={`outline`}
+						color={`grape`}
+						w={`200px`}
+						onMouseOver={onHoverCyberShop}
+					>
+						Cyber shop
+					</Button>
+				</Group>
+			</Stack>
+		</div>
 	);
 }

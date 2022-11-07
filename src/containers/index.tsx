@@ -1,7 +1,8 @@
 import * as React from 'react';
-import {Box, MantineProvider, useMantineTheme} from "@mantine/core";
+import {Box, ColorScheme, MantineProvider, useMantineTheme} from "@mantine/core";
 import {NotificationsProvider} from "@mantine/notifications";
 import {ModalsProvider} from "@mantine/modals";
+import {useState} from "react";
 
 export default function DefaultContainer({children}: { children?: React.ReactElement }) {
 	const theme = useMantineTheme();

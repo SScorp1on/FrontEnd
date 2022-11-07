@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 
 export default function FooterComponent() {
 
-	const width = `200px`;
+	const maxWidth = `150px`;
 	const navigate = useNavigate();
 
 	const toDelivery= () => {
@@ -13,15 +13,16 @@ export default function FooterComponent() {
 
 	return (
 		<Center>
-			<Box style={{width: `840px`, marginTop: `15px`}}>
+			<Box style={{marginTop: `15px`}}>
 				<Group
-					position={`apart`}
+					position={`center`}
 					align={`center`}
-					spacing={`xs`}
+					spacing={15}
+					style={{width: `870px`}}
 				>
-					<Button style={{width: width}}>Контакты</Button>
-					<Button style={{width: width}} onClick={toDelivery}>Доставка</Button>
-					<Button style={{width: width}}>Вакансии</Button>
+					<Button w={maxWidth}>Контакты</Button>
+					<Button w={maxWidth} onClick={toDelivery}>Доставка</Button>
+					<Button w={maxWidth}>Вакансии</Button>
 				</Group>
 			</Box>
 		</Center>

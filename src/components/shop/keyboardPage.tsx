@@ -144,8 +144,9 @@ export default function KeyboardPage(props: IProps) {
 						<Group position={`center`} spacing={`xl`} style={{marginRight: `15px`}}>
 							<Card
 								style={{
-									width: `600px`,
-									height: `450px`
+									maxWidth: `600px`,
+									width: `100%`,
+									height: `450px`,
 								}}
 							>
 								<Carousel
@@ -245,7 +246,15 @@ export default function KeyboardPage(props: IProps) {
 									>
 										Оформить
 									</Button>
-									<Divider color={`dark`} style={{width: `90%`, height: `5px`, marginTop: `10px`}}/>
+									<Divider
+										color={`dark`}
+										style={{
+											maxWidth: `840px`,
+											width: `100%`,
+											height: `5px`,
+											marginTop: `10px`,
+										}}
+									/>
 									<Group spacing={3} align={`center`}>
 										<Text size={12}>Нужна помощь?</Text>
 										<Text size={12} component={`a`} color={`red`} variant={`link`}>Свяжись с нами</Text>
@@ -257,9 +266,10 @@ export default function KeyboardPage(props: IProps) {
 							my={`sm`}
 							color={`dark`}
 							style={{
-								width: `840px`,
-								height: `10px`,
-								maxWidth: `840px`
+								maxWidth: `840px`,
+								width: `100%`,
+								height: `5px`,
+								marginTop: `10px`,
 							}}
 						/>
 						<Space h={`md`}/>
@@ -271,9 +281,10 @@ export default function KeyboardPage(props: IProps) {
 						<Divider
 							color={`dark`}
 							style={{
-								width: `840px`,
-								height: `10px`,
-								maxWidth: `840px`
+								maxWidth: `840px`,
+								width: `100%`,
+								height: `5px`,
+								marginTop: `10px`,
 							}}
 						/>
 						<Group position={`center`} spacing={100} style={{maxWidth: `600px`}}>

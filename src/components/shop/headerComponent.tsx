@@ -43,7 +43,7 @@ export default function HeaderComponent({user, userLoading, setUserLoading}: IPr
 
 	return (
 		<Center>
-			<Group position={`apart`} style={{width: `870px`}}>
+			<Group position={`apart`} style={{maxWidth: `870px`, width: `100%`}}>
 				<Group>
 					<Stack
 						style={{marginLeft: `15px`}}

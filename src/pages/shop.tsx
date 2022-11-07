@@ -146,7 +146,6 @@ export default function ShopPage() {
 				}
 			>
 				<Stack align={`center`}>
-					
 					<Group
 						position="center"
 						align={`top`}
