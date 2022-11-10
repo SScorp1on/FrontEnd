@@ -8,7 +8,7 @@ import {
 	Button,
 	Header,
 	Footer,
-	AppShell, Divider, Group,
+	AppShell, Divider, Group, useMantineTheme,
 } from "@mantine/core";
 import {Car, Package, Ship, ShoppingCart, Tool} from "tabler-icons-react";
 import {useDocumentTitle} from "@mantine/hooks";
@@ -23,10 +23,13 @@ interface UserInterface {
 	avatar: string;
 }
 
+const iconSize = 18;
+
 export default function DeliveryPage() {
 	useDocumentTitle(`Ожидание`);
 
 	const navigate = useNavigate();
+	const theme = useMantineTheme();
 
 	const [user, setUser] = useState<null | UserInterface>(null);
 	const [userLoading, setUserLoading] = useState(false);
@@ -65,9 +68,13 @@ export default function DeliveryPage() {
 									определенный алгоритм:
 								</Text>
 								<Space h={`md`}/>
-								<Timeline color={`red`} active={4} bulletSize={24} lineWidth={2}>
-									<Timeline.Item bullet={<ShoppingCart size={12}/>} title={`Закупка`}
-									               lineVariant={`dashed`}>
+								<Timeline color={`red`} active={4} bulletSize={28} lineWidth={2}>
+									<Timeline.Item
+										bullet={<ShoppingCart size={iconSize} />}
+										radius={`sm`}
+										title={`Закупка`}
+										lineVariant={`dashed`}
+									>
 										<Text size="sm" style={{width: `500px`}}>
 											Необходимо пройтись по всему списку компонентов, проверить
 											какие уже есть, а какие предстоит заказать. Подготовить файлы для печати
@@ -75,7 +82,12 @@ export default function DeliveryPage() {
 										</Text>
 									</Timeline.Item>
 
-									<Timeline.Item bullet={<Ship size={12}/>} title={`Доставка`} lineVariant={`dashed`}>
+									<Timeline.Item
+										bullet={<Ship size={iconSize}/>}
+										radius={`sm`}
+										title={`Доставка`}
+										lineVariant={`dashed`}
+									>
 										<Text size="sm" style={{width: `500px`}}>
 											Ожидаем доставки всех тех компонентов, которые были заказаны. В частности,
 											самое важное - платы. Их делают на заказ отдельно под каждую клавиатуру,
@@ -83,7 +95,11 @@ export default function DeliveryPage() {
 										</Text>
 									</Timeline.Item>
 
-									<Timeline.Item bullet={<Tool size={12}/>} title={`Сборка`}>
+									<Timeline.Item
+										bullet={<Tool size={iconSize}/>}
+										radius={`sm`}
+										title={`Сборка`}
+									>
 										<Text size="sm" style={{width: `500px`}}>
 											Каждый копмонент помещается в свое место, а затем припаивается. После пайки
 											всей клавиатуры ее необходимо поместить в корпус. Когда клавиатура
@@ -91,7 +107,7 @@ export default function DeliveryPage() {
 										</Text>
 									</Timeline.Item>
 
-									<Timeline.Item bullet={<Package size={12}/>} title={`Упаковка`}
+									<Timeline.Item radius={`sm`} bullet={<Package size={iconSize}/>} title={`Упаковка`}
 									               lineVariant={`dashed`}>
 										<Text size="sm" style={{width: `500px`}}>
 											Как только клавиатура прошла все тесты и она точно работает, ее необходимо
@@ -100,7 +116,11 @@ export default function DeliveryPage() {
 										</Text>
 									</Timeline.Item>
 
-									<Timeline.Item bullet={<Car size={12}/>} title={`Отправка`}>
+									<Timeline.Item
+										bullet={<Car size={iconSize}/>}
+										radius={`sm`}
+										title={`Отправка`}
+									>
 										<Text size="sm" style={{width: `500px`}}>
 											На данном этапе коробка с клавиатурой преодолевает бывает крайне большие
 											расстояния, чтобы попасть к тебе в руки.

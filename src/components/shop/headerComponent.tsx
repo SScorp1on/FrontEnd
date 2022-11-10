@@ -41,20 +41,29 @@ export default function HeaderComponent({user, userLoading, setUserLoading}: IPr
 		navigate(`/shop`);
 	};
 
+	const toMain = () => {
+		navigate(`/`);
+	};
+
 	return (
 		<Center>
 			<Group position={`apart`} style={{maxWidth: `870px`, width: `100%`}}>
+
 				<Group>
-					<Stack
-						style={{marginLeft: `15px`}}
+					<UnstyledButton
+						onClick={toMain}
 					>
-						<Text color={`red`} weight={700} size={28}>
-							JOURLOY
-						</Text>
-						<Text color={`dimmed`} style={{marginLeft: `4px`, marginTop: `-25px`}}>
-							Удобно и точка
-						</Text>
-					</Stack>
+						<Stack
+							style={{marginLeft: `15px`}}
+						>
+							<Text color={`red`} weight={700} size={28}>
+								JOURLOY
+							</Text>
+							<Text color={`dimmed`} style={{marginLeft: `4px`, marginTop: `-25px`}}>
+								Удобно и точка
+							</Text>
+						</Stack>
+					</UnstyledButton>
 					<Divider orientation={`vertical`} style={{marginTop: 10, height: `50px`}}/>
 					<UnstyledButton
 						className={classes.home}

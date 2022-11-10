@@ -10,11 +10,8 @@ import {
 	Textarea,
 	Stack,
 	Input,
-	createStyles,
-	Card, useMantineTheme
 } from "@mantine/core";
-import {useNavigate} from "react-router-dom";
-import {At, Login, X} from "tabler-icons-react";
+import {At} from "tabler-icons-react";
 import {createBackendContext, updateTokens} from "../context/axios.context";
 import BuyFramework from "../components/shop/buyFramework";
 import {useDocumentTitle} from "@mantine/hooks";
@@ -31,23 +28,8 @@ interface UserInterface {
 	avatar: string;
 }
 
-const useStyles = createStyles((theme, _params, getRef) => ({
-	home: {
-		marginTop: `10px`,
-		color: `black`,
-		fontWeight: 300,
-		fontSize: 15,
-		":hover": {
-			color: `red`
-		},
-	}
-}));
-
 export default function ShopPage() {
 	useDocumentTitle(`Магазин`);
-
-	const navigate = useNavigate();
-	const theme = useMantineTheme();
 
 	const [user, setUser] = useState<null | UserInterface>(null);
 	const [userLoading, setUserLoading] = useState(false);
@@ -136,12 +118,16 @@ export default function ShopPage() {
 				asideOffsetBreakpoint="sm"
 				header={
 					<Header height={70}>
-						<HeaderComponent user={user} userLoading={userLoading} setUserLoading={setUserLoading}/>
+						<HeaderComponent
+							user={user}
+							userLoading={userLoading}
+							setUserLoading={setUserLoading}
+						/>
 					</Header>
 				}
 				footer={
 					<Footer height={60}>
-						<FooterComponent />
+						<FooterComponent/>
 					</Footer>
 				}
 			>
@@ -166,7 +152,7 @@ export default function ShopPage() {
 						onClick={() => setModalState(true)}
 						style={{marginTop: `35px`, maxWidth: `300px`}}
 					>
-							Нет подходящей клавиатуры?
+						Нет подходящей клавиатуры?
 					</Button>
 				</Stack>
 			</AppShell>
