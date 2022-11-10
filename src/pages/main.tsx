@@ -5,30 +5,45 @@ import {
 	Stack,
 	Button,
 	useMantineTheme,
-	Group
+	Group,
+	useMantineColorScheme
 } from "@mantine/core";
 import {useDocumentTitle} from "@mantine/hooks";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
+import {showNotification} from "@mantine/notifications";
 
 export default function Main() {
 	useDocumentTitle(`Jourloy`);
 
 	const theme = useMantineTheme();
+	const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 	const navigate = useNavigate();
 
 	const [rColor, setRColor] = useState(theme.colors.red[7]);
 
 	const onHoverKeyboardShop = () => {
 		setRColor(theme.colors.red[7]);
+		toggleColorScheme(`light`);
 	};
 
 	const onHoverCyberShop = () => {
 		setRColor(theme.colors.grape[7]);
+		toggleColorScheme(`dark`);
 	};
 
 	const toShop = () => {
 		navigate(`/shop`);
+	};
+
+	const toCyberShop = () => {
+		showNotification({
+			title: `Скоро`,
+			message: `На данный момент этот раздел находится в разработке`,
+			radius: `md`,
+			disallowClose: true,
+			color: `grape`
+		});
 	};
 
 	return (
@@ -63,6 +78,7 @@ export default function Main() {
 						color={`red`}
 						w={`200px`}
 						onMouseOver={onHoverKeyboardShop}
+						onClick={toShop}
 					>
 						Keyboard shop
 					</Button>
@@ -71,6 +87,7 @@ export default function Main() {
 						color={`grape`}
 						w={`200px`}
 						onMouseOver={onHoverCyberShop}
+						onClick={toCyberShop}
 					>
 						Cyber shop
 					</Button>

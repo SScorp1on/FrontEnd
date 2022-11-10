@@ -27,4 +27,5 @@ jobs:
                       echo DOCKER_PORT=${{ secrets.DOCKER_PORT }} >> .env
                       docker-compose down
                       git pull
+                      yarn build
                       docker-compose up -d
