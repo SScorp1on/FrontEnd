@@ -14,6 +14,7 @@ import LilyPage from "./pages/shop/lily58";
 import HelixPage from "./pages/shop/helix";
 import ErgodashPage from "./pages/shop/ergodash";
 import DeliveryPage from "./pages/shop/delivery";
+import ManagerPage from "./pages/manager";
 
 function App() {
 	return (
@@ -104,6 +105,14 @@ function App() {
 					element={
 						<DefaultContainer>
 							<ErgodashPage/>
+						</DefaultContainer>
+					}
+				/>
+				<Route
+					path='/manager'
+					element={
+						<DefaultContainer>
+							<ManagerPage/>
 						</DefaultContainer>
 					}
 				/>

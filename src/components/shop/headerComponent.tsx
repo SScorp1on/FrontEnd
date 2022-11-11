@@ -14,6 +14,7 @@ interface IProps {
 	user: null | IUser,
 	userLoading: boolean | undefined,
 	setUserLoading: React.Dispatch<React.SetStateAction<boolean>>,
+	width?: boolean;
 }
 
 const useStyles = createStyles((theme, _params, getRef) => ({
@@ -28,7 +29,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 	}
 }));
 
-export default function HeaderComponent({user, userLoading, setUserLoading}: IProps) {
+export default function HeaderComponent({user, userLoading, setUserLoading, width}: IProps) {
 
 	const navigate = useNavigate();
 	const {classes} = useStyles();
@@ -42,35 +43,46 @@ export default function HeaderComponent({user, userLoading, setUserLoading}: IPr
 	};
 
 	const toMain = () => {
-		navigate(`/`);
+		navigate(`/shop`);
+	};
+
+	const maxWidth = () => {
+		if (!width) return `870px`;
+		return `100%`;
 	};
 
 	return (
 		<Center>
-			<Group position={`apart`} style={{maxWidth: `870px`, width: `100%`}}>
+			<Group position={`apart`} style={{maxWidth: maxWidth(), width: `100%`}}>
 
 				<Group>
-					<UnstyledButton
-						onClick={toMain}
-					>
-						<Stack
-							style={{marginLeft: `15px`}}
+					<>
+						<UnstyledButton
+							onClick={toMain}
 						>
-							<Text color={`red`} weight={700} size={28}>
-								JOURLOY
-							</Text>
-							<Text color={`dimmed`} style={{marginLeft: `4px`, marginTop: `-25px`}}>
-								Удобно и точка
-							</Text>
-						</Stack>
-					</UnstyledButton>
-					<Divider orientation={`vertical`} style={{marginTop: 10, height: `50px`}}/>
-					<UnstyledButton
-						className={classes.home}
-						onClick={toShop}
-					>
-						Клавиатуры
-					</UnstyledButton>
+							<Stack
+								style={{marginLeft: `15px`}}
+							>
+								<Text color={`red`} weight={700} size={28}>
+									JOURLOY
+								</Text>
+								<Text color={`dimmed`} style={{marginLeft: `4px`, marginTop: `-25px`}}>
+									Удобно и точка
+								</Text>
+							</Stack>
+						</UnstyledButton>
+						{width ? <></> :
+							<>
+								<Divider orientation={`vertical`} style={{marginTop: 10, height: `50px`}}/>
+								<UnstyledButton
+									className={classes.home}
+									onClick={toShop}
+								>
+									Клавиатуры
+								</UnstyledButton>
+							</>
+						}
+					</>
 				</Group>
 
 				<Group style={{marginRight: `5px`, marginBottom: `5px`}} position={`right`}>

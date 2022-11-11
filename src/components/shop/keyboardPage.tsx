@@ -14,9 +14,9 @@ import {
 	Image,
 	Divider,
 	Space,
-	createStyles,
+	createStyles, Modal, UnstyledButton, Textarea, Input,
 } from "@mantine/core";
-import {DiscountCheck, Truck, X} from "tabler-icons-react";
+import {At, DiscountCheck, Truck, X} from "tabler-icons-react";
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {createBackendContext, updateTokens} from "../../context/axios.context";
@@ -74,6 +74,8 @@ export default function KeyboardPage(props: IProps) {
 	const [keycapColor, setKeycapColor] = useState(``);
 	const [keycapText, setKeycapText] = useState(``);
 
+	const [modalState, setModalState] = useState(true);
+
 	const slides = props.img.map((image, index) => (
 		<Carousel.Slide key={index}>
 			<Image src={image.image} width={600} height={450} radius={9} fit={`cover`}/>
@@ -125,6 +127,51 @@ export default function KeyboardPage(props: IProps) {
 
 	return (
 		<>
+			<Modal
+				opened={modalState}
+				onClose={() => setModalState(false)}
+				centered
+				withCloseButton={false}
+			>
+				<Stack align={`center`}>
+					<Text color={`dark`} weight={700} sx={{fontSize: 20}}>
+						Помощь тут
+					</Text>
+					<Textarea
+						placeholder={`Распиши проблему, что не получается или может что-то не понятно. Ответим
+						на почту и распишем все в подробностях`}
+						autosize
+						radius={`md`}
+						style={({width: `90%`})}
+						styles={(theme) => ({
+							input: {
+								borderColor: theme.colors.dark[7],
+								'&:hover': {borderColor: theme.colors.dark[7]},
+								'&:focus': {borderColor: theme.colors.dark[7]},
+							},
+						})}
+					/>
+					<Input
+						icon={<At color={`black`} size={20}/>}
+						placeholder={`Твоя почта`}
+						radius={`md`}
+						style={{width: `90%`}}
+						styles={(theme) => ({
+							input: {
+								borderColor: theme.colors.dark[7],
+								'&:hover': {borderColor: theme.colors.dark[7]},
+								'&:focus': {borderColor: theme.colors.dark[7]},
+							},
+						})}
+					/>
+					<Button
+						fullWidth
+						style={{width: `90%`}}
+					>
+						Отправить
+					</Button>
+				</Stack>
+			</Modal>
 			<AppShell
 				navbarOffsetBreakpoint="sm"
 				asideOffsetBreakpoint="sm"
@@ -257,7 +304,18 @@ export default function KeyboardPage(props: IProps) {
 									/>
 									<Group spacing={3} align={`center`}>
 										<Text size={12}>Нужна помощь?</Text>
-										<Text size={12} component={`a`} color={`red`} variant={`link`}>Свяжись с нами</Text>
+										<UnstyledButton
+											onClick={() => setModalState(true)}
+										>
+											<Text
+												size={12}
+												component={`a`}
+												color={`red`}
+												variant={`link`}
+											>
+												Свяжись с нами
+											</Text>
+										</UnstyledButton>
 									</Group>
 								</Stack>
 							</Stack>
