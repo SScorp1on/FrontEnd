@@ -45,7 +45,7 @@ export default function Register() {
         setLoading(true);
 
         const regContext = createBackendContext();
-        const response = await regContext.post(`auth/register`, {email: form.getInputProps('email'), password: form.getInputProps('password')})
+        const response = await regContext.post(`auth/register`, {email: form.values.email, password: form.values.password})
             .catch(e => {
                 if (!e.response.data.state) {
                     showNotification({
