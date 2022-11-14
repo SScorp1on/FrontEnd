@@ -53,11 +53,10 @@ export default function RemoveModal(props: IProps) {
 					size={25}
 					tt={`uppercase`}
 				>
-					Точно?
+					Точно удалить?
 				</Text>
 				<Group>
 					<Button
-						color={`red`}
 						w={130}
 						loading={loading}
 						onClick={removeKeyboard}
@@ -66,11 +65,9 @@ export default function RemoveModal(props: IProps) {
 						Да
 					</Button>
 					<Button
-						color={`green`}
 						w={130}
 						onClick={() => props.setOpened(false)}
 						loading={loading}
-						variant={`outline`}
 					>
 						Нет
 					</Button>

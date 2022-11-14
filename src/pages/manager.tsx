@@ -1,11 +1,24 @@
-import {ActionIcon, AppShell, Button, Center, Group, Header, Navbar, Space, Stack, Text, UnstyledButton} from "@mantine/core";
-import {useEffect, useState} from "react";
+import {
+	ActionIcon,
+	AppShell,
+	Button,
+	Center,
+	Group,
+	Header,
+	Navbar,
+	Space,
+	Stack,
+	Text,
+	UnstyledButton
+} from "@mantine/core";
+import React, {useEffect, useState} from "react";
 import AddKeyboardModal from "../components/manager/addKeyboardModal";
 import {createBackendContext} from "../context/axios.context";
 import {showNotification} from "@mantine/notifications";
 import {TrashX, X} from "tabler-icons-react";
 import RemoveModal from "../components/manager/removeModal";
 import HeaderComponent from "../components/shop/headerComponent";
+import KeyboardApp from "../components/manager/keyboardApp";
 
 interface Keyboard {
 	_id: string;
@@ -16,6 +29,16 @@ interface Keyboard {
 	price: number;
 	priceOld: number;
 	visible: boolean;
+}
+
+interface Component {
+	_id: string;
+	name: string;
+	price: number;
+	link: string;
+	delivery: number;
+	status: `unchecked` | `checked` | `error` | `reserve`;
+	amount: number;
 }
 
 interface UserInterface {
@@ -33,33 +56,58 @@ export default function ManagerPage() {
 
 	const [keyboards, setKeyboards] = useState<Keyboard[]>([]);
 
-	const [activeKeyboards, setActiveKeyboards] = useState<Keyboard | null>();
+	const [activeKeyboard, setActiveKeyboard] = useState<Keyboard>();
 
 	const [user, setUser] = useState<null | UserInterface>(null);
 	const [userLoading, setUserLoading] = useState(false);
 
+	const [components, setComponents] = useState<Component[]>([]);
+
+	const buttonColor = (name: string) => {
+		if (!activeKeyboard || activeKeyboard.name !== name) return `dark`;
+		return `red`;
+	};
+
 	const formatKeyboards = keyboards.map((v) => (
-		<>
-			<Group spacing={5}>
-				<Button
-					variant={`outline`}
-					style={{
-						width: `200px`
-					}}
-				>
-					{v.name}
-				</Button>
-				<ActionIcon
-					onClick={() => {
-						setRemoveKeyboardID(v._id);
-						setRemoveKeyboard(true);
-					}}
-				>
-					<TrashX color={`black`} strokeWidth={1} />
-				</ActionIcon>
-			</Group>
-		</>
+		<Group spacing={5} key={v._id}>
+			<Button
+				variant={`outline`}
+				style={{
+					width: `200px`
+				}}
+				color={buttonColor(v.name)}
+				onClick={() => {
+					forceUpdateComponents(v.name);
+					setActiveKeyboard(v);
+				}}
+			>
+				{v.name}
+			</Button>
+			<ActionIcon
+				onClick={() => {
+					setRemoveKeyboardID(v._id);
+					setRemoveKeyboard(true);
+				}}
+			>
+				<TrashX color={`black`} strokeWidth={1}/>
+			</ActionIcon>
+		</Group>
 	));
+
+	const forceUpdateComponents = (name: string) => {
+		const bContext = createBackendContext();
+		bContext.get(`/components/all?keyboardName=${name}`)
+			.then((data) => {
+				setComponents(data.data);
+			})
+			.catch(() => {
+				showNotification({
+					message: `Не получилось обновить компоненты D:`,
+					color: `red`,
+					icon: <X />
+				});
+			});
+	};
 
 	const forceUpdate = () => {
 		const bContext = createBackendContext();
@@ -71,7 +119,7 @@ export default function ManagerPage() {
 				showNotification({
 					message: `Не удалось загрузить клавиатуры D:`,
 					color: `red`,
-					icon: <X />
+					icon: <X/>
 				});
 			});
 	};
@@ -109,7 +157,7 @@ export default function ManagerPage() {
 				navbar={
 					<Navbar w={250}>
 						<Stack align={`center`}>
-							<Space h={0} />
+							<Space h={0}/>
 							{formatKeyboards}
 							<Button
 								w={235}
@@ -124,7 +172,11 @@ export default function ManagerPage() {
 					</Navbar>
 				}
 			>
-
+				<KeyboardApp
+					keyboard={activeKeyboard}
+					components={components}
+					updateFunc={forceUpdateComponents}
+				/>
 			</AppShell>
 		</>
 	);
